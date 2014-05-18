@@ -11,8 +11,6 @@ env = Environment(loader=FileSystemLoader(["/Users/hungnq/code/python/i38/src/te
 class Root(object):
     @cherrypy.expose
     def index(self):
-        # host = cherrypy.request.headers['Host']
-        # return "You have successfully reached " + host
         pages = [page for page in Page.list(cherrypy.request.db)]
         cherrypy.response.headers['content-type'] = 'text/html'
         template = env.get_template( "index.html")
@@ -28,4 +26,3 @@ if __name__ == '__main__':
     cherrypy.tree.mount(Root(), '/', 'server.conf')
     cherrypy.engine.start()
     cherrypy.engine.block()
-    # cherrypy.quickstart(Root(), '/', 'server.conf')

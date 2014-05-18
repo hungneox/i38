@@ -8,6 +8,11 @@
 
 {% block content %}
 <div class="row">
+  <div class="col-lg-12">
+    <h2>Top news</h2>
+  </div>
+</div>
+<div class="row">
   <div class="col-lg-12 col-sm-12">
     <article>
     {% for page in page_list %}
@@ -17,5 +22,3 @@
   </div>
 </div>
 {% endblock %}
-
-{% block footer %}footer{% endblock %}
