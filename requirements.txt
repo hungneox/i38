@@ -1,3 +1,4 @@
 CherryPy==3.3.0
 Mako==0.9.1
 SQLAlchemy==0.9.4
+https://pypi.python.org/pypi/alembic/0.6.5
