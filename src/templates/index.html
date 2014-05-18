@@ -1,10 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+<%block name="title">
+    this is the title
+</%block>
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-12 col-sm-12">
+    <article>
+    {% for page in page_list %}
+      <h2><a href="{{ page.site_url }}">{{ page.site_title }}</a><h2>
+    {% endfor %}
+   </article>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}footer{% endblock %}
