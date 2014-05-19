@@ -3,10 +3,10 @@ import cherrypy
 from models import Page
 from tools import SAEnginePlugin
 from tools import SATool
-
+from tools import RelativeEnvironment
 from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
 
-env = Environment(loader=FileSystemLoader(["/Users/hungnq/code/python/i38/src/templates"])) 
+env = RelativeEnvironment(loader=FileSystemLoader(["templates"])) 
 
 class Root(object):
     @cherrypy.expose

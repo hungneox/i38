@@ -4,6 +4,7 @@ import cherrypy
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from jinja2 import Environment
 
 from models import *
 
@@ -76,3 +77,9 @@ class SATool(cherrypy.Tool):
             raise
         finally:
             self.session.remove()
+
+
+class RelativeEnvironment(Environment):
+    """Override join_path() to enable relative template paths."""
+    def join_path(self, template, parent):
+        return os.path.join(os.path.dirname(parent), template)
