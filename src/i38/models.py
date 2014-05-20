@@ -13,6 +13,8 @@ class Page(Base):
     page_title = Column(String(200))
     page_url =  Column(String(2048))
     description = Column(String(2048))
+    up = Column(Integer)
+    down = Column(Integer)
     rank = Column(Numeric(12,2))
     created_at = Column(DateTime)
 
@@ -21,6 +23,8 @@ class Page(Base):
         self.page_url = page_url
         self.page_title = page_title
         self.description = description
+        self.up = 0
+        self.down = 0
         self.rank = 0
         self.create_at = datetime.now()
 
