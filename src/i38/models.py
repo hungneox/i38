@@ -4,8 +4,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy.types import String, Integer, Numeric, DateTime
 from datetime import datetime
+import hashlib
+
 # Helper to map and register a Python class a db table
 Base = declarative_base()
+
+SESSION_KEY = '_cp_username'
 
 class Page(Base):
     __tablename__ = 'pages'
@@ -69,6 +73,16 @@ class User(Base):
     @staticmethod
     def get(session, id):
         return session.query(User).get(id)
+
+    @staticmethod
+    def check_credentials(session, username, password):
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        user = session.query(User).filter_by(username=username).first()
+        if user is None:
+            return "Username %s is not exist" % username
+        if user.password != hashed_password:
+            return "Incorrect password."
+
 # class Comment(Base):
 #     __tablename__ = 'comment'
 #   pass

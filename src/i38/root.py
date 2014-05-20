@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import cherrypy
-from models import Page
+from models import *
 from tools import SAEnginePlugin
 from tools import SATool
 from tools import RelativeEnvironment
@@ -9,7 +9,15 @@ from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
 
 env = RelativeEnvironment(loader=FileSystemLoader(["templates"])) 
 
+def authenticate():
+    user = cherrypy.session.get(SESSION_KEY, None)
+    if not user:
+        raise cherrypy.HTTPRedirect('/login')
+
+cherrypy.tools.authenticate = cherrypy.Tool('before_handler', authenticate)
+
 class Root(object):
+
     @cherrypy.expose
     def index(self):
         pages = [page for page in Page.list(cherrypy.request.db)]
@@ -22,11 +30,32 @@ class Root(object):
       return "This is the page content"
 
     @cherrypy.expose
-    def login(self, username=None, password=None, register=False):
-        template = env.get_template( "login.html")
-        return template.render()
+    def login(self, username=None, password=None, from_page=None):
+        if username is None or password is None:
+            template = env.get_template("login.html")
+            return template.render()
+
+        error_msg = User.check_credentials(cherrypy.request.db, username, password)
+
+        if error_msg:
+            template = env.get_template( "login.html")
+            return template.render(error_msg=error_msg)
+        else:
+            cherrypy.session[SESSION_KEY] = cherrypy.request.login = username
+            raise cherrypy.HTTPRedirect(from_page or "/")
 
     @cherrypy.expose
+    def register(self, username=None, password=None):
+        if username and password:
+            user = User(username, password)
+            cherrypy.request.db.add(user)
+        else:
+            template = env.get_template( "register.html")
+            error_msg = "Username and password cannot be empty."
+            return template.render(error_msg=error_msg)
+
+    @cherrypy.expose
+    @cherrypy.tools.authenticate() 
     def submit(self, page_title=None, page_url=None, description=None):
         if page_title and page_url:
             page = Page(page_title, page_url, description)
