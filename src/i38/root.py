@@ -35,8 +35,8 @@ class Root(BaseController):
         return self.render("index",page_list=pages)
 
     @cherrypy.expose
-    def page(self):
-      return "This is the page content"
+    def lastest(self):
+      return "This is the lastest page content"
 
     @cherrypy.expose
     def login(self, username=None, password=None, from_page=None):
