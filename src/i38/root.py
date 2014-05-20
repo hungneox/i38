@@ -20,6 +20,12 @@ class Root(object):
     def page(self):
       return "This is the page content"
 
+
+    @cherrypy.expose
+    def login(self):
+        template = env.get_template( "login.html")
+        return template.render()
+
 if __name__ == '__main__':
     SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()
     cherrypy.tools.db = SATool()
