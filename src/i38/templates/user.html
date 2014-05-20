@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %} User {{user.username}}{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col-lg-6 col-sm-12">
   {{ error_msg }}
-  {% if not error_message %}
+  {% if not error_msg %}
     <ul>
       <li>Created: {{ created_at }}</li>
       <li>Karma: </li>

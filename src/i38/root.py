@@ -74,11 +74,13 @@ class Root(BaseController):
         page = Page.get(id)
         return self.render("news",page=page)
 
+    @cherrypy.expose
     def user(self, username):
         user = User.find_by_username(username)
+        error_msg = None
         if not user:
             error_msg = "Non existing user"
-        self.render("user", user=user, error_msg=error_msg)
+        return self.render('user', user=user)
 
 if __name__ == '__main__':
     SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()

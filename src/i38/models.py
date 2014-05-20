@@ -62,10 +62,10 @@ class User(Base):
         self.password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     def __str__(self):
-        return self.site_url
+        return self.username
  
     def __unicode__(self):
-        return self.site_url
+        return self.username
 
     @staticmethod
     def list():
@@ -85,10 +85,11 @@ class User(Base):
             return "Incorrect password."
 
     @staticmethod
-    def find_by_user_name(username):
+    def find_by_username(username):
         user = cherrypy.request.db.query(User).filter_by(username=username).first()
-        if user is None:
-            return "Username %s is not exist" % username
+        # if user is None:
+        #     return "Username %s is not exist" % username
+        return user
 
 # class Comment(Base):
 #     __tablename__ = 'comment'
