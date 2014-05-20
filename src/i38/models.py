@@ -1,3 +1,4 @@
+import cherrypy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -40,12 +41,12 @@ class Page(Base):
         return self.site_url
  
     @staticmethod
-    def list(session):
-        return session.query(Page).all()
+    def list():
+        return cherrypy.request.db.query(Page).all()
 
     @staticmethod
-    def get(session, id):
-        return session.query(Page).get(id)
+    def get(id):
+        return cherrypy.request.db.query(Page).get(id)
 
 class User(Base):
     __tablename__ = 'users'
@@ -67,21 +68,27 @@ class User(Base):
         return self.site_url
 
     @staticmethod
-    def list(session):
-        return session.query(User).all()
+    def list():
+        return cherrypy.request.db.query(User).all()
 
     @staticmethod
-    def get(session, id):
-        return session.query(User).get(id)
+    def get(id):
+        return cherrypy.request.db.query(User).get(id)
 
     @staticmethod
-    def check_credentials(session, username, password):
+    def check_credentials(username, password):
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user = session.query(User).filter_by(username=username).first()
+        user = cherrypy.request.db.query(User).filter_by(username=username).first()
         if user is None:
             return "Username %s is not exist" % username
         if user.password != hashed_password:
             return "Incorrect password."
+
+    @staticmethod
+    def find_by_user_name(username):
+        user = cherrypy.request.db.query(User).filter_by(username=username).first()
+        if user is None:
+            return "Username %s is not exist" % username
 
 # class Comment(Base):
 #     __tablename__ = 'comment'

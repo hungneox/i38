@@ -16,14 +16,23 @@ def authenticate():
 
 cherrypy.tools.authenticate = cherrypy.Tool('before_handler', authenticate)
 
-class Root(object):
+class BaseController:
+    def render(self, name, **data):
+        template = env.get_template(name+".html")
+        username = cherrypy.session.get(SESSION_KEY, None)
+        data['is_user_logged_in'] = False
+        if username:
+            data['is_user_logged_in'] = True
+            data['username'] = username
+        
+        return template.render(data)
+
+class Root(BaseController):
 
     @cherrypy.expose
     def index(self):
-        pages = [page for page in Page.list(cherrypy.request.db)]
-        cherrypy.response.headers['content-type'] = 'text/html'
-        template = env.get_template( "index.html")
-        return template.render(page_list=pages)
+        pages = [page for page in Page.list()]
+        return self.render("index",page_list=pages)
 
     @cherrypy.expose
     def page(self):
@@ -35,11 +44,10 @@ class Root(object):
             template = env.get_template("login.html")
             return template.render()
 
-        error_msg = User.check_credentials(cherrypy.request.db, username, password)
+        error_msg = User.check_credentials(username, password)
 
         if error_msg:
-            template = env.get_template( "login.html")
-            return template.render(error_msg=error_msg)
+            return self.render("login",error_msg=error_msg)
         else:
             cherrypy.session[SESSION_KEY] = cherrypy.request.login = username
             raise cherrypy.HTTPRedirect(from_page or "/")
@@ -50,9 +58,8 @@ class Root(object):
             user = User(username, password)
             cherrypy.request.db.add(user)
         else:
-            template = env.get_template( "register.html")
             error_msg = "Username and password cannot be empty."
-            return template.render(error_msg=error_msg)
+            return self.render("register", error_msg=error_msg)
 
     @cherrypy.expose
     @cherrypy.tools.authenticate() 
@@ -60,14 +67,18 @@ class Root(object):
         if page_title and page_url:
             page = Page(page_title, page_url, description)
             cherrypy.request.db.add(page)
-        template = env.get_template( "submit.html")
-        return template.render()
+        return self.render('submit')
 
     @cherrypy.expose
     def news(self, id):
-        page = Page.get(cherrypy.request.db, id)
-        template = env.get_template("news.html")
-        return template.render(page=page)
+        page = Page.get(id)
+        return self.render("news",page=page)
+
+    def user(self, username):
+        user = User.find_by_username(username)
+        if not user:
+            error_msg = "Non existing user"
+        self.render("user", user=user, error_msg=error_msg)
 
 if __name__ == '__main__':
     SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()
