@@ -43,6 +43,32 @@ class Page(Base):
     def get(session, id):
         return session.query(Page).get(id)
 
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(255))
+    password = Column(String(255))
+    email = Column(String(255))
+    description = Column(String(2048))
+    create_at = Column(DateTime)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    def __str__(self):
+        return self.site_url
+ 
+    def __unicode__(self):
+        return self.site_url
+
+    @staticmethod
+    def list(session):
+        return session.query(User).all()
+
+    @staticmethod
+    def get(session, id):
+        return session.query(User).get(id)
 # class Comment(Base):
 #     __tablename__ = 'comment'
 #   pass
