@@ -20,7 +20,6 @@ class Root(object):
     def page(self):
       return "This is the page content"
 
-
     @cherrypy.expose
     def login(self, username=None, password=None, register=False):
         template = env.get_template( "login.html")
@@ -33,6 +32,12 @@ class Root(object):
             cherrypy.request.db.add(page)
         template = env.get_template( "submit.html")
         return template.render()
+
+    @cherrypy.expose
+    def news(self, id):
+        page = Page.get(cherrypy.request.db, id)
+        template = env.get_template("news.html")
+        return template.render(page=page)
 
 if __name__ == '__main__':
     SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()

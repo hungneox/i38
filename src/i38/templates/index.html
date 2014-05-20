@@ -10,11 +10,14 @@
 </div>
 <div class="row">
   <div class="col-lg-12 col-sm-12">
-    <article>
     {% for page in page_list %}
-      <h2><a href="{{ page.page_url }}">{{ page.page_title }}</a><h2>
+      <article>
+        <a class="uparrow" href="#up">▲</a>
+        <h2><a href="{{ page.page_url }}">{{ page.page_title }}</a></h2>
+        <a class="downarrow" href="#down">▼</a>
+        <p>1 up and 0 down, posted by <username><a href="/user/dtby">dtby</a></username> 1 day ago <a href="/news/{{ page.id }}">9 comments</a></p>
+     </article>
     {% endfor %}
-   </article>
   </div>
 </div>
 {% endblock %}

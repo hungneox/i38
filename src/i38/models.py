@@ -35,6 +35,10 @@ class Page(Base):
     def list(session):
         return session.query(Page).all()
 
+    @staticmethod
+    def get(session, id):
+        return session.query(Page).get(id)
+
 # class Comment(Base):
 #     __tablename__ = 'comment'
 #   pass
