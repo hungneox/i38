@@ -22,8 +22,16 @@ class Root(object):
 
 
     @cherrypy.expose
-    def login(self):
+    def login(self, username=None, password=None, register=False):
         template = env.get_template( "login.html")
+        return template.render()
+
+    @cherrypy.expose
+    def submit(self, page_title=None, page_url=None, description=None):
+        if page_title and page_url:
+            page = Page(page_title, page_url, description)
+            cherrypy.request.db.add(page)
+        template = env.get_template( "submit.html")
         return template.render()
 
 if __name__ == '__main__':

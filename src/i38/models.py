@@ -2,23 +2,28 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
-from sqlalchemy.types import String, Integer
- 
+from sqlalchemy.types import String, Integer, Numeric, DateTime
+from datetime import datetime
 # Helper to map and register a Python class a db table
 Base = declarative_base()
 
 class Page(Base):
-    __tablename__ = 'page'
+    __tablename__ = 'pages'
     id = Column(Integer, primary_key=True)
-    site_url =  Column(String)
-    site_title = Column(String)
-    description = Column(String)
- 
-    def __init__(self, site_url, site_title, description):
+    page_title = Column(String(200))
+    page_url =  Column(String(2048))
+    description = Column(String(2048))
+    rank = Column(Numeric(12,2))
+    created_at = Column(DateTime)
+
+    def __init__(self, page_title, page_url, description):
         Base.__init__(self)
-        self.site_url = site_url
-        self.site_title = site_title
+        self.page_url = page_url
+        self.page_title = page_title
         self.description = description
+        self.rank = 0
+        self.create_at = datetime.now()
+
  
     def __str__(self):
         return self.site_url
