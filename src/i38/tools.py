@@ -86,9 +86,11 @@ class RelativeEnvironment(Environment):
 
 class Utility(object):
     @staticmethod
-    def time_ago(datetime):
+    def time_ago(created_at):
+        if not created_at:
+            return "Undefined"
         now = datetime.now()
-        diff = now - datetime
+        diff = now - created_at
         if diff.days >= 365:
             return "%s years ago" % (diff.days // 365)
         elif diff.days >= 30:
