@@ -12,6 +12,7 @@
   <div class="col-lg-4 col-sm-4">
   {{error_msg}}
     <form action="/login" method="POST" role="form">
+    <input type="hidden" name="from_page" value="{{from_page}}" />
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" name="username" class="form-control" value=""/>

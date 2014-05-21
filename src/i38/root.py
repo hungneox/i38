@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import cherrypy
+import urllib
 from models import *
 from tools import SAEnginePlugin
 from tools import SATool
@@ -12,8 +13,9 @@ env = RelativeEnvironment(loader=FileSystemLoader(["templates"]))
 
 def authenticate():
     user = cherrypy.session.get(SESSION_KEY, None)
+    get_parmas =  urllib.parse.quote(cherrypy.request.request_line.split()[1])
     if not user:
-        raise cherrypy.HTTPRedirect('/login')
+        raise cherrypy.HTTPRedirect('/login?from_page=%s' % get_parmas)
 
 cherrypy.tools.authenticate = cherrypy.Tool('before_handler', authenticate)
 
@@ -40,9 +42,9 @@ class Root(BaseController):
       return "This is the  page content"
 
     @cherrypy.expose
-    def login(self, username=None, password=None, from_page=None):
+    def login(self, username=None, password=None, from_page='/'):
         if username is None or password is None:
-            return self.render('login')
+            return self.render('login', from_page=from_page)
 
         error_msg = User.check_credentials(username, password)
 
