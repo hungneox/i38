@@ -31,7 +31,7 @@ class Page(Base):
         self.up = 0
         self.down = 0
         self.rank = 0
-        self.create_at = datetime.now()
+        self.created_at = datetime.now()
 
  
     def __str__(self):
@@ -55,11 +55,12 @@ class User(Base):
     password = Column(String(255))
     email = Column(String(255))
     description = Column(String(2048))
-    create_at = Column(DateTime)
+    created_at = Column(DateTime)
 
     def __init__(self, username, password):
         self.username = username
         self.password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        self.created_at = datetime.now()
 
     def __str__(self):
         return self.username
@@ -87,8 +88,6 @@ class User(Base):
     @staticmethod
     def find_by_username(username):
         user = cherrypy.request.db.query(User).filter_by(username=username).first()
-        # if user is None:
-        #     return "Username %s is not exist" % username
         return user
 
 # class Comment(Base):

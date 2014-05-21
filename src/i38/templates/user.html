@@ -9,19 +9,38 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-6 col-sm-12">
-  {{ error_msg }}
-  {% if not error_msg %}
-    <ul>
-      <li>Created: {{ created_at }}</li>
-      <li>Karma: </li>
-      <li>Posted news: {{ news_count }}</li>
-      <li>Posted comment: {{ comments_count }}</li>
-      <li><a href="#">Saved news</a></li>
-      <li><a href="#">User comment</a></li>
-      <li><a href="#">User news</a></li>
-    </ul>
-  {% endif %}
+    <div class="col-lg-6 col-sm-12">
+    {{ error_msg }}
+    {% if not error_msg %}
+      <ul>
+        <li>Created: {{ user.created_time_ago }}</li>
+        <li>Karma: </li>
+        <li>Posted news: {{ news_count }}</li>
+        <li>Posted comment: {{ comments_count }}</li>
+        <li><a href="#">Saved news</a></li>
+        <li><a href="#">User comment</a></li>
+        <li><a href="#">User news</a></li>
+      </ul>
+    {% endif %}
+    </div>
   </div>
+  <div class="row">
+   <div class="col-lg-6 col-sm-6 user-info">
+       <form action="/user" method="POST" role="form">
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input type="text" name="username" class="form-control" value=""/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="introduction">Introduction</label>
+        <input type="introduction" name="introduction" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    </div>
 </div>
 {% endblock %}

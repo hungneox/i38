@@ -5,6 +5,7 @@ from models import *
 from tools import SAEnginePlugin
 from tools import SATool
 from tools import RelativeEnvironment
+from tools import Utility
 from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
 
 env = RelativeEnvironment(loader=FileSystemLoader(["templates"])) 
@@ -36,13 +37,12 @@ class Root(BaseController):
 
     @cherrypy.expose
     def lastest(self):
-      return "This is the lastest page content"
+      return "This is the  page content"
 
     @cherrypy.expose
     def login(self, username=None, password=None, from_page=None):
         if username is None or password is None:
-            template = env.get_template("login.html")
-            return template.render()
+            return self.render('login')
 
         error_msg = User.check_credentials(username, password)
 
@@ -76,11 +76,19 @@ class Root(BaseController):
 
     @cherrypy.expose
     def user(self, username):
+        me = cherrypy.session.get(SESSION_KEY, None)
+        is_my_username = False
+        if me == username:
+            is_my_username = True
+
         user = User.find_by_username(username)
-        error_msg = None
+
+        msg = None
         if not user:
-            error_msg = "Non existing user"
-        return self.render('user', user=user)
+            msg = "Non existing user"
+        else:
+            user.created_time_ago = Utility.time_ago(user.created_at)
+        return self.render('user', user=user, is_me=is_my_username, error_msg=msg)
 
 if __name__ == '__main__':
     SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()
