@@ -77,7 +77,7 @@ class Root(BaseController):
         return self.render("news",page=page)
 
     @cherrypy.expose
-    def user(self, username):
+    def user(self, username, email=None, password=None, description=None):
         me = cherrypy.session.get(SESSION_KEY, None)
         is_my_username = False
         if me == username:

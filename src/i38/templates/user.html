@@ -11,6 +11,9 @@
 <div class="row">
     <div class="col-lg-6 col-sm-12">
     {{ error_msg }}
+    {% if not is_me %}
+      {{ user.description }}
+    {% endif %}
     {% if not error_msg %}
       <ul>
         <li>Created: {{ user.created_time_ago }}</li>
@@ -28,8 +31,8 @@
    <div class="col-lg-6 col-sm-6 user-info">
        <form action="/user" method="POST" role="form">
       <div class="form-group">
-        <label for="username">Email</label>
-        <input type="text" name="username" class="form-control" value=""/>
+        <label for="email">Email</label>
+        <input type="text" name="email" class="form-control" value=""/>
       </div>
       <div class="form-group">
         <label for="password">Password</label>

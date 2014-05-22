@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
-from sqlalchemy.types import String, Integer, Numeric, DateTime
+from sqlalchemy.types import String, UnicodeText, Integer, Numeric, DateTime
 from datetime import datetime
 import hashlib
 
@@ -90,6 +90,25 @@ class User(Base):
         user = cherrypy.request.db.query(User).filter_by(username=username).first()
         return user
 
-# class Comment(Base):
-#     __tablename__ = 'comment'
-#   pass
+class Comment(Base):
+    __tablename__ = 'comments'
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer)
+    page_id = Column(Integer)
+    user_id = Column(Integer)
+    path = Column(String(1024))
+    text = Column(UnicodeText)
+    created_at = Column(DateTime)
+
+    def __init__(self, page_id, parent_id, user_id, text):
+        self.page_id = page_id
+        self.parent_id = parent_id
+        self.user_id = user_id
+        self.text = text
+        self.created_at = datetime.now()
+
+    def __str__(self):
+        return self.text
+ 
+    def __unicode__(self):
+        return self.text
