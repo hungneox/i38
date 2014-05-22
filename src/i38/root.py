@@ -35,7 +35,7 @@ class Root(BaseController):
     @cherrypy.expose
     def index(self):
         pages = [page for page in Page.list()]
-        return self.render("index",page_list=pages)
+        return self.render("index",pages=pages)
 
     @cherrypy.expose
     def lastest(self):
@@ -74,7 +74,11 @@ class Root(BaseController):
     @cherrypy.expose
     def news(self, id):
         page = Page.get(id)
-        return self.render("news",page=page)
+        username = cherrypy.session.get(SESSION_KEY, None)
+        is_user_logged_in = False
+        if username:
+            is_user_logged_in = True
+        return self.render("news",page=page, is_user_logged_in=is_user_logged_in)
 
     @cherrypy.expose
     def user(self, username, email=None, password=None, description=None):

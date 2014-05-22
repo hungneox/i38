@@ -4,6 +4,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText, Integer, Numeric, DateTime
+from sqlalchemy.schema import ForeignKey
 from datetime import datetime
 import hashlib
 
@@ -93,9 +94,9 @@ class User(Base):
 class Comment(Base):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer)
-    page_id = Column(Integer)
-    user_id = Column(Integer)
+    parent_id = Column(Integer, ForeignKey("comments.id"), nullable=False)
+    page_id = Column(Integer, ForeignKey("pages.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     path = Column(String(1024))
     text = Column(UnicodeText)
     created_at = Column(DateTime)
@@ -112,3 +113,7 @@ class Comment(Base):
  
     def __unicode__(self):
         return self.text
+
+    @staticmethod
+    def get(id):
+        return cherrypy.request.db.query(Comment).get(id)
