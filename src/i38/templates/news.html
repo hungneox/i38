@@ -7,8 +7,8 @@
   <div class="col-lg-12 col-sm-">
    <section id="newslist">
       <article data-news-id="{{page.id}}">
-          <a href="#up" class="uparrow voted">▲</a> 
-          <h2><a href="{{page.page_url}}" rel="nofollow">{{page.page_title}}</a></h2> 
+          <a href="#up" class="uparrow voted">▲</a>
+          <h2><a href="{{page.page_url}}" rel="nofollow">{{page.page_title}}</a></h2>
           <address>at llbit.se</address>
           <a href="#down" class="downarrow disabled">▼</a>
           <p>2 up and 0 down, posted by <username><a href="/user/dtby">dtby</a></username> 22 days ago <a href="/news/1424">0 comments</a></p>
@@ -19,15 +19,15 @@
   {% if is_user_logged_in %}
   <div class="row">
       <div class="col-lg-6">
-       <form action="" role="form">
+       <form role="form" id="formComment">
           <input type="hidden" name="page_id" value="{{page.id}}">
-          <input type="hidden" name="parent_id" value="-1">
           <input type="hidden" name="comment_id" value="-1">
+          <input type="hidden" name="parent_id" value="-1">
           <div class="form-group">
           <label for="comment">Comment</label>
-          <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+          <textarea name="text" id="" cols="30" rows="10" class="form-control"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">Submit</button>
       </form>
     </div>
   </div>
@@ -36,8 +36,8 @@
     <div id="comments" class="col-lg-12 col-sm-12">
      {% for comment in comments %}
       <article data-comment-id="{{comment.id}}" class="comment" id="{{comment.id}}">
-      <span class="avatar"><img src="http://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=48&amp;d=mm"></span>
-        <span class="info"><span class="username"><a href="/user/noubadi">username</a></span> time ago <a class="reply" href="/comment/[id]/[level]">link</a>  3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
+      <span class="avatar"><img src="http://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=48"></span>
+        <span class="info"><span class="username"><a href="/user/{{comment.user}}}">username</a></span> time ago <a class="reply" href="/comment/[id]/[level]">link</a>  3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
         <pre>{{comment.text}}</pre>
       </article>
       {% endfor %}

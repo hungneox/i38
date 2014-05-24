@@ -11,7 +11,8 @@ import hashlib
 # Helper to map and register a Python class a db table
 Base = declarative_base()
 
-SESSION_KEY = '_cp_username'
+SESSION_USERNAME = '_session_username'
+SESSION_USER_ID  = '_session_user_id'
 
 class Page(Base):
     __tablename__ = 'pages'
@@ -34,13 +35,13 @@ class Page(Base):
         self.rank = 0
         self.created_at = datetime.now()
 
- 
+
     def __str__(self):
         return self.site_url
- 
+
     def __unicode__(self):
         return self.site_url
- 
+
     @staticmethod
     def list():
         return cherrypy.request.db.query(Page).all()
@@ -65,7 +66,7 @@ class User(Base):
 
     def __str__(self):
         return self.username
- 
+
     def __unicode__(self):
         return self.username
 
@@ -101,19 +102,23 @@ class Comment(Base):
     text = Column(UnicodeText)
     created_at = Column(DateTime)
 
-    def __init__(self, page_id, parent_id, user_id, text):
+    def __init__(self, user_id, page_id, parent_id, text):
+        self.user_id = user_id
         self.page_id = page_id
         self.parent_id = parent_id
-        self.user_id = user_id
         self.text = text
         self.created_at = datetime.now()
 
     def __str__(self):
         return self.text
- 
+
     def __unicode__(self):
         return self.text
 
     @staticmethod
     def get(id):
         return cherrypy.request.db.query(Comment).get(id)
+
+    @staticmethod
+    def list():
+        return cherrypy.request.db.query(Comment).all()
