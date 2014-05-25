@@ -93,6 +93,11 @@ class Root(BaseController):
         return self.render("news",news=news, is_user_logged_in=is_user_logged_in, comments=comments)
 
     @cherrypy.expose
+    def reply(self, news_id, comment_id):
+      comment = Comment.get(comment_id)
+      return self.render("reply", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1)
+
+    @cherrypy.expose
     def user(self, username, email=None, password=None, description=None):
         me = cherrypy.session.get(SESSION_USERNAME, None)
         is_my_username = False
@@ -124,10 +129,18 @@ class Api(object):
           news = News.get(news_id)
           news.comments += 1
           cherrypy.request.db.add(comment)
+          cherrypy.request.db.flush()
+          cherrypy.request.db.refresh(comment)
+          if comment.parent.path:
+            path = comment.parent.path + '/' + str(comment.id)
+          else:
+            path = str(news_id) + '/' + str(comment.id)
+          level = len(path.split("/"))
+          cherrypy.request.db.query(Comment).filter_by(id=comment.id).update({"path":path,"level":level})
         except Exception as ex:
           return {"success": False,"news_id": news_id, "message": str(ex)}
 
-        return {"success": True, "comment_id": comment.id, "news_id": news_id}
+        return {"success": True, "comment_id": str(comment.id), "news_id": news_id}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()

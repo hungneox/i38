@@ -8,6 +8,7 @@ from sqlalchemy.types import String, UnicodeText, Integer, Numeric, DateTime
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import func
+from sqlalchemy import desc
 from datetime import datetime
 import hashlib
 
@@ -115,16 +116,20 @@ class Comment(Base):
     vote_up = Column(Integer)
     vote_down = Column(Integer)
     path = Column(String(1024))
+    level = Column(Integer, default=1)
     text = Column(UnicodeText)
     created_at = Column(DateTime)
 
     news = relationship('News', foreign_keys='Comment.news_id')
     user = relationship('User', foreign_keys='Comment.user_id')
+    parent = relationship('Comment',  remote_side=[id])
 
     def __init__(self, user_id, news_id, parent_id, text):
         self.user_id = user_id
         self.news_id = news_id
         self.parent_id = parent_id
+        if not self.parent_id:
+          self.path = str(news_id) + '/'
         self.text = text
         self.created_at = datetime.now()
 
@@ -140,4 +145,4 @@ class Comment(Base):
 
     @staticmethod
     def list(news_id):
-        return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).all()
+        return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).order_by(Comment.path, Comment.created_at).all()
