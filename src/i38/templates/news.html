@@ -37,7 +37,10 @@
      {% for comment in comments %}
       <article data-comment-id="{{comment.id}}" class="comment" id="{{comment.id}}">
       <span class="avatar"><img src="http://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=48"></span>
-        <span class="info"><span class="username"><a href="/user/{{comment.user}}}">username</a></span> time ago <a class="reply" href="/comment/[id]/[level]">link</a>  3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
+        <span class="info"><span class="username"><a href="/user/{{comment.user.username}}">{{comment.user.username}}</a></span> time ago
+        <a class="reply" href="/comment/{{comment.page_id}}/{{comment.id}}">link</a>
+        <a class="reply" href="/reply/{{comment.page_id}}/{{comment.id}}">reply</a>
+        3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
         <pre>{{comment.text}}</pre>
       </article>
       {% endfor %}

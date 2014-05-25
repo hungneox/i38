@@ -15,9 +15,18 @@
         <a class="uparrow" href="#up">▲</a>
         <h2><a href="{{ page.page_url }}">{{ page.page_title }}</a></h2>
         <a class="downarrow" href="#down">▼</a>
-        <p>1 up and 0 down, posted by <username><a href="/user/dtby">dtby</a></username> 1 day ago <a href="/news/{{ page.id }}">9 comments</a></p>
+        <p>{{ page.vote_up }} up and {{ page.vote_down }} down, posted by <username><a href="/user/{{ page.user.username }}">{{ page.user.username }}</a></username> 1 day ago <a href="/news/{{ page.id }}">{{ page.comments}} comments</a></p>
      </article>
     {% endfor %}
   </div>
+</div>
+<div class="row">
+  <ul class="pagination">
+  {% if next_page >= 2%}
+  <li><a href="/index/{{next_page-2}}">Previous</a></li>
+  {% endif %}
+  <li><a href="/index/{{next_page}}">Next</a></li>
+</ul>
+
 </div>
 {% endblock %}

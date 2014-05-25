@@ -29,16 +29,20 @@ class BaseController:
             data['is_user_logged_in'] = True
             data['username'] = username
 
-        return template.render(data)
+        return template.render(data).encode('utf-8')
 
 class Root(BaseController):
     def __init__(self):
         self.api = Api()
 
     @cherrypy.expose
-    def index(self):
-        pages = [page for page in Page.list()]
-        return self.render("index",pages=pages)
+    def index(self, page=1):
+        page_size = 3
+        print('page: %s' % page)
+        offset = (int(page)-1) * page_size
+        pages =  Page.list(page_size, offset)
+        next_page = int(page)+1
+        return self.render("index",pages=pages, next_page=next_page)
 
     @cherrypy.expose
     def lastest(self):
@@ -71,8 +75,12 @@ class Root(BaseController):
     @cherrypy.tools.authenticate()
     def submit(self, page_title=None, page_url=None, description=None):
         if page_title and page_url:
-            page = Page(page_title, page_url, description)
+            user_id = cherrypy.session.get(SESSION_USER_ID, None)
+            page = Page(user_id, page_title, page_url, description)
             cherrypy.request.db.add(page)
+            cherrypy.request.db.flush()
+            cherrypy.request.db.refresh(page)
+            raise cherrypy.HTTPRedirect('/news/%d' % page.id)
         return self.render('submit')
 
     @cherrypy.expose
@@ -82,7 +90,7 @@ class Root(BaseController):
         is_user_logged_in = False
         if username:
             is_user_logged_in = True
-        comments =  [comment for comment in Comment.list()]
+        comments =  [comment for comment in Comment.list(id)]
         return self.render("news",page=page, is_user_logged_in=is_user_logged_in, comments=comments)
 
     @cherrypy.expose
@@ -120,9 +128,22 @@ class Api(object):
 
         return {"success": True, "comment_id": comment.id, "page_id": page_id}
 
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def vote_page(self, page_id, direction):
+      try:
+        page = Page.get(page_id)
+        if direction == 'up':
+          page.vote_up += 1
+        elif direction == 'down':
+          page.vote_down += 1
+      except Exception as ex:
+        return {"success": False, "page_id": page_id, "message": str(ex)}
+      return {"success": True, "page_id": page_id}
+
 
 if __name__ == '__main__':
-    SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin').subscribe()
+    SAEnginePlugin(cherrypy.engine, 'mysql+pymysql://root@127.0.0.1/bangtin?charset=utf8').subscribe()
     cherrypy.tools.db = SATool()
     cherrypy.tree.mount(Root(), '/', 'server.conf')
     cherrypy.engine.start()

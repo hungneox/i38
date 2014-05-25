@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cherrypy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -5,6 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column
 from sqlalchemy.types import String, UnicodeText, Integer, Numeric, DateTime
 from sqlalchemy.schema import ForeignKey
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy import func
 from datetime import datetime
 import hashlib
 
@@ -17,19 +20,24 @@ SESSION_USER_ID  = '_session_user_id'
 class Page(Base):
     __tablename__ = 'pages'
     id = Column(Integer, primary_key=True)
-    page_title = Column(String(200))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    page_title = Column(UnicodeText(200))
     page_url =  Column(String(2048))
-    description = Column(String(2048))
-    up = Column(Integer)
-    down = Column(Integer)
+    description = Column(UnicodeText(2048))
+    vote_up = Column(Integer, default=0)
+    vote_down = Column(Integer, default=0)
+    comments = Column(Integer, default=0)
     rank = Column(Numeric(12,2))
     created_at = Column(DateTime)
 
-    def __init__(self, page_title, page_url, description):
+    user = relationship('User', foreign_keys='Page.user_id')
+
+    def __init__(self, user_id, page_title, page_url, description):
         Base.__init__(self)
-        self.page_url = page_url
-        self.page_title = page_title
-        self.description = description
+        self.user_id = user_id
+        self.page_url = page_url.encode('utf-8')
+        self.page_title = page_title.encode('utf-8')
+        self.description = description.encode('utf-8')
         self.up = 0
         self.down = 0
         self.rank = 0
@@ -43,12 +51,17 @@ class Page(Base):
         return self.site_url
 
     @staticmethod
-    def list():
-        return cherrypy.request.db.query(Page).all()
+    def list(page_size, offset):
+        return cherrypy.request.db.query(Page).limit(page_size).offset(offset)
 
     @staticmethod
     def get(id):
         return cherrypy.request.db.query(Page).get(id)
+
+    @staticmethod
+    def count():
+      #http://stackoverflow.com/questions/14754994/why-is-sqlalchemy-count-much-slower-than-the-raw-query
+      return  cherrypy.request.db.query(func.count(Page.id)).scalar()#optimize to count rows
 
 class User(Base):
     __tablename__ = 'users'
@@ -57,6 +70,7 @@ class User(Base):
     password = Column(String(255))
     email = Column(String(255))
     description = Column(String(2048))
+    karma = Column(Integer)
     created_at = Column(DateTime)
 
     def __init__(self, username, password):
@@ -98,9 +112,14 @@ class Comment(Base):
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=False)
     page_id = Column(Integer, ForeignKey("pages.id"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    vote_up = Column(Integer)
+    vote_down = Column(Integer)
     path = Column(String(1024))
     text = Column(UnicodeText)
     created_at = Column(DateTime)
+
+    page = relationship('Page', foreign_keys='Comment.page_id')
+    user = relationship('User', foreign_keys='Comment.user_id')
 
     def __init__(self, user_id, page_id, parent_id, text):
         self.user_id = user_id
@@ -120,5 +139,5 @@ class Comment(Base):
         return cherrypy.request.db.query(Comment).get(id)
 
     @staticmethod
-    def list():
-        return cherrypy.request.db.query(Comment).all()
+    def list(page_id):
+        return cherrypy.request.db.query(Comment).filter_by(page_id=page_id).all()
