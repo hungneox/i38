@@ -51,7 +51,7 @@ class Root(BaseController):
       offset = (int(page)-1) * page_size
       news_list =  News.lastest(page_size, offset)
       next_page = int(page)+1
-      return self.render("index",news_list=news_list, next_page=next_page)
+      return self.render("index",news_list=news_list, next_page=next_page, lastest=True)
 
     @cherrypy.expose
     def login(self, username=None, password=None, from_page='/'):

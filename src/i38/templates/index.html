@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}Homepage{% endblock %}
+{% if lastest %}
+  {% set active_page = "lastest" %}
+{% else %}
+  {% set active_page = "index" %}
+{% endif %}
 
 {% block content %}
 <div class="row">
