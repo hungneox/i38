@@ -8,7 +8,7 @@ function post_comment(e){
           data: data,
           dataType: 'json'
       }).done(function(data, textStatus, jqXHR){
-        window.location.href = "/news/"+data.page_id;
+        window.location.href = "/news/"+data.news_id;
       }).fail(function(data, textStatus, jqXHR){
           console.log(data.error);
       });

@@ -121,9 +121,9 @@ class Comment(Base):
     news = relationship('News', foreign_keys='Comment.news_id')
     user = relationship('User', foreign_keys='Comment.user_id')
 
-    def __init__(self, user_id, page_id, parent_id, text):
+    def __init__(self, user_id, news_id, parent_id, text):
         self.user_id = user_id
-        self.page_id = page_id
+        self.news_id = news_id
         self.parent_id = parent_id
         self.text = text
         self.created_at = datetime.now()

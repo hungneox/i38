@@ -11,7 +11,7 @@
           <h2><a href="{{news.site_url}}" rel="nofollow">{{news.site_title}}</a></h2>
           <address>at llbit.se</address>
           <a href="#down" class="downarrow disabled">▼</a>
-          <p>2 up and 0 down, posted by <username><a href="/user/{{news.user.username}}">dtby</a></username> 22 days ago <a href="/news/{{news.id}}">0 comments</a></p>
+          <p>{{ news.vote_up }} up and {{ news.vote_down }} down, posted by <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> 22 days ago <a href="/news/{{news.id}}">{{ news.comments }} comments</a></p>
         </article>
     </section>
   </div>

@@ -121,11 +121,13 @@ class Api(object):
           #data = cherrypy.request.json
           user_id = cherrypy.session[SESSION_USER_ID]
           comment = Comment(user_id, news_id, parent_id, text)
+          news = News.get(news_id)
+          news.comments += 1
           cherrypy.request.db.add(comment)
         except Exception as ex:
-          return {"success": False,"news_id": page_id, "message": str(ex)}
+          return {"success": False,"news_id": news_id, "message": str(ex)}
 
-        return {"success": True, "comment_id": comment.id, "news_id": page_id}
+        return {"success": True, "comment_id": comment.id, "news_id": news_id}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
