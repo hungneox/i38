@@ -3,11 +3,13 @@ import os
 import cherrypy
 import urllib
 import json
+import time
+from tld import get_tld
 from models import *
 from tools import SAEnginePlugin
 from tools import SATool
 from tools import RelativeEnvironment
-from tools import Utility
+from utility import Utility
 from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
 
 env = RelativeEnvironment(loader=FileSystemLoader(["templates"]))
@@ -44,8 +46,12 @@ class Root(BaseController):
         return self.render("index",news_list=news_list, next_page=next_page)
 
     @cherrypy.expose
-    def lastest(self):
-      return "This is the  page content"
+    def lastest(self, page=1):
+      page_size = 10
+      offset = (int(page)-1) * page_size
+      news_list =  News.lastest(page_size, offset)
+      next_page = int(page)+1
+      return self.render("index",news_list=news_list, next_page=next_page)
 
     @cherrypy.expose
     def login(self, username=None, password=None, from_page='/'):
@@ -151,6 +157,7 @@ class Api(object):
           news.vote_up += 1
         elif direction == 'down':
           news.vote_down += 1
+        news.rank = News._rank(news.vote_up, news.vote_down, int(time.time()))
       except Exception as ex:
         return {"success": False, "news_id": news_id, "message": str(ex)}
       return {"success": True, "news_id": news_id}

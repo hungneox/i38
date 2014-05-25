@@ -37,3 +37,9 @@ article address {
 .container .text-muted {
   margin: 20px 0;
 }
+.comment_list {
+  margin-top: 20px;
+}
+article .downarrow.disabled, .uparrow.disabled {
+  visibility: hidden;
+}

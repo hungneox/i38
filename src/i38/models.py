@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import cherrypy
+import time
+from tld import get_tld
+from math import log10
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -10,6 +13,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy import func
 from sqlalchemy import desc
 from datetime import datetime
+from utility import Utility
 import hashlib
 
 # Helper to map and register a Python class a db table
@@ -51,9 +55,38 @@ class News(Base):
     def __unicode__(self):
         return self.site_url
 
+    def tld(self):
+      return get_tld(self.site_url)
+
+    def time_ago(self):
+      return Utility.time_ago(self.created_at)
+
+    @staticmethod
+    def score(ups, downs):
+      return ups - downs
+
+    @staticmethod
+    def _rank(ups, downs, date):
+      # This is reddit ranking function
+      # https://github.com/iangreenleaf/reddit/blob/45e8209d8d4236367a6f7247068c13ab2307afb4/r2/r2/lib/db/_sorts.pyx#L45
+      s = News.score(ups, downs)
+      order = log10(max(abs(s), 1))
+      if s > 0:
+          sign = 1
+      elif s < 0:
+          sign = -1
+      else:
+          sign = 0
+      seconds = date - 1134028003
+      return round((order * sign) * seconds / 45000, 7)
+
     @staticmethod
     def list(page_size, offset):
-        return cherrypy.request.db.query(News).limit(page_size).offset(offset)
+        return cherrypy.request.db.query(News).order_by(desc(News.rank)).limit(page_size).offset(offset)
+
+    @staticmethod
+    def lastest(page_size, offset):
+       return cherrypy.request.db.query(News).order_by(desc(News.created_at)).limit(page_size).offset(offset)
 
     @staticmethod
     def get(id):
