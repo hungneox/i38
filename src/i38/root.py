@@ -37,12 +37,11 @@ class Root(BaseController):
 
     @cherrypy.expose
     def index(self, page=1):
-        page_size = 3
-        print('page: %s' % page)
+        page_size = 10
         offset = (int(page)-1) * page_size
-        pages =  Page.list(page_size, offset)
+        news_list =  News.list(page_size, offset)
         next_page = int(page)+1
-        return self.render("index",pages=pages, next_page=next_page)
+        return self.render("index",news_list=news_list, next_page=next_page)
 
     @cherrypy.expose
     def lastest(self):
@@ -76,22 +75,22 @@ class Root(BaseController):
     def submit(self, page_title=None, page_url=None, description=None):
         if page_title and page_url:
             user_id = cherrypy.session.get(SESSION_USER_ID, None)
-            page = Page(user_id, page_title, page_url, description)
-            cherrypy.request.db.add(page)
+            news = News(user_id, page_title, page_url, description)
+            cherrypy.request.db.add(news)
             cherrypy.request.db.flush()
-            cherrypy.request.db.refresh(page)
-            raise cherrypy.HTTPRedirect('/news/%d' % page.id)
+            cherrypy.request.db.refresh(news)
+            raise cherrypy.HTTPRedirect('/news/%d' % news.id)
         return self.render('submit')
 
     @cherrypy.expose
     def news(self, id):
-        page = Page.get(id)
+        news = News.get(id)
         username = cherrypy.session.get(SESSION_USERNAME, None)
         is_user_logged_in = False
         if username:
             is_user_logged_in = True
         comments =  [comment for comment in Comment.list(id)]
-        return self.render("news",page=page, is_user_logged_in=is_user_logged_in, comments=comments)
+        return self.render("news",news=news, is_user_logged_in=is_user_logged_in, comments=comments)
 
     @cherrypy.expose
     def user(self, username, email=None, password=None, description=None):
@@ -117,29 +116,29 @@ class Api(object):
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def post_comment(self, page_id, comment_id, parent_id, text):
+    def post_comment(self, news_id, comment_id, parent_id, text):
         try:
           #data = cherrypy.request.json
           user_id = cherrypy.session[SESSION_USER_ID]
-          comment = Comment(user_id, page_id, parent_id, text)
+          comment = Comment(user_id, news_id, parent_id, text)
           cherrypy.request.db.add(comment)
         except Exception as ex:
-          return {"success": False,"page_id": page_id, "message": str(ex)}
+          return {"success": False,"news_id": page_id, "message": str(ex)}
 
-        return {"success": True, "comment_id": comment.id, "page_id": page_id}
+        return {"success": True, "comment_id": comment.id, "news_id": page_id}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def vote_page(self, page_id, direction):
+    def vote_news(self, news_id, direction):
       try:
-        page = Page.get(page_id)
+        news = News.get(news_id)
         if direction == 'up':
-          page.vote_up += 1
+          news.vote_up += 1
         elif direction == 'down':
-          page.vote_down += 1
+          news.vote_down += 1
       except Exception as ex:
-        return {"success": False, "page_id": page_id, "message": str(ex)}
-      return {"success": True, "page_id": page_id}
+        return {"success": False, "news_id": news_id, "message": str(ex)}
+      return {"success": True, "news_id": news_id}
 
 
 if __name__ == '__main__':

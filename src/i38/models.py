@@ -17,12 +17,12 @@ Base = declarative_base()
 SESSION_USERNAME = '_session_username'
 SESSION_USER_ID  = '_session_user_id'
 
-class Page(Base):
-    __tablename__ = 'pages'
+class News(Base):
+    __tablename__ = 'news'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    page_title = Column(UnicodeText(200))
-    page_url =  Column(String(2048))
+    site_title = Column(UnicodeText(200))
+    site_url =  Column(String(2048))
     description = Column(UnicodeText(2048))
     vote_up = Column(Integer, default=0)
     vote_down = Column(Integer, default=0)
@@ -30,13 +30,13 @@ class Page(Base):
     rank = Column(Numeric(12,2))
     created_at = Column(DateTime)
 
-    user = relationship('User', foreign_keys='Page.user_id')
+    user = relationship('User', foreign_keys='News.user_id')
 
-    def __init__(self, user_id, page_title, page_url, description):
+    def __init__(self, user_id, site_title, site_url, description):
         Base.__init__(self)
         self.user_id = user_id
-        self.page_url = page_url.encode('utf-8')
-        self.page_title = page_title.encode('utf-8')
+        self.site_url = site_url.encode('utf-8')
+        self.site_title = site_title.encode('utf-8')
         self.description = description.encode('utf-8')
         self.up = 0
         self.down = 0
@@ -52,16 +52,16 @@ class Page(Base):
 
     @staticmethod
     def list(page_size, offset):
-        return cherrypy.request.db.query(Page).limit(page_size).offset(offset)
+        return cherrypy.request.db.query(News).limit(page_size).offset(offset)
 
     @staticmethod
     def get(id):
-        return cherrypy.request.db.query(Page).get(id)
+        return cherrypy.request.db.query(News).get(id)
 
     @staticmethod
     def count():
       #http://stackoverflow.com/questions/14754994/why-is-sqlalchemy-count-much-slower-than-the-raw-query
-      return  cherrypy.request.db.query(func.count(Page.id)).scalar()#optimize to count rows
+      return  cherrypy.request.db.query(func.count(News.id)).scalar()#optimize to count rows
 
 class User(Base):
     __tablename__ = 'users'
@@ -110,7 +110,7 @@ class Comment(Base):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=False)
-    page_id = Column(Integer, ForeignKey("pages.id"), nullable=False)
+    news_id = Column(Integer, ForeignKey("news.id"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     vote_up = Column(Integer)
     vote_down = Column(Integer)
@@ -118,7 +118,7 @@ class Comment(Base):
     text = Column(UnicodeText)
     created_at = Column(DateTime)
 
-    page = relationship('Page', foreign_keys='Comment.page_id')
+    news = relationship('News', foreign_keys='Comment.news_id')
     user = relationship('User', foreign_keys='Comment.user_id')
 
     def __init__(self, user_id, page_id, parent_id, text):
@@ -139,5 +139,5 @@ class Comment(Base):
         return cherrypy.request.db.query(Comment).get(id)
 
     @staticmethod
-    def list(page_id):
-        return cherrypy.request.db.query(Comment).filter_by(page_id=page_id).all()
+    def list(news_id):
+        return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).all()

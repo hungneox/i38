@@ -9,13 +9,13 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-12 col-sm-12">
-    {% for page in pages %}
-      <article>
+  <div class="col-lg-12 col-sm-12" id="news_list">
+    {% for news in news_list %}
+      <article data-news-id="{{news.id}}">
         <a class="uparrow" href="#up">▲</a>
-        <h2><a href="{{ page.page_url }}">{{ page.page_title }}</a></h2>
+        <h2><a href="{{ news.site_url }}">{{ news.site_title }}</a></h2>
         <a class="downarrow" href="#down">▼</a>
-        <p>{{ page.vote_up }} up and {{ page.vote_down }} down, posted by <username><a href="/user/{{ page.user.username }}">{{ page.user.username }}</a></username> 1 day ago <a href="/news/{{ page.id }}">{{ page.comments}} comments</a></p>
+        <p>{{ news.vote_up }} up and {{ news.vote_down }} down, posted by <username><a href="/user/{{ news.user.username }}">{{ news.user.username }}</a></username> 1 day ago <a href="/news/{{ news.id }}">{{ news.comments}} comments</a></p>
      </article>
     {% endfor %}
   </div>

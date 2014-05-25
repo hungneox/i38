@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ page.page_title }}{% endblock %}
+{% block title %} {{ news.page_title }}{% endblock %}
 
 {% block content %}
 <div class="row">
   <div class="col-lg-12 col-sm-">
    <section id="newslist">
-      <article data-news-id="{{page.id}}">
+      <article data-news-id="{{news.id}}">
           <a href="#up" class="uparrow voted">▲</a>
-          <h2><a href="{{page.page_url}}" rel="nofollow">{{page.page_title}}</a></h2>
+          <h2><a href="{{news.site_url}}" rel="nofollow">{{news.site_title}}</a></h2>
           <address>at llbit.se</address>
           <a href="#down" class="downarrow disabled">▼</a>
-          <p>2 up and 0 down, posted by <username><a href="/user/dtby">dtby</a></username> 22 days ago <a href="/news/1424">0 comments</a></p>
+          <p>2 up and 0 down, posted by <username><a href="/user/{{news.user.username}}">dtby</a></username> 22 days ago <a href="/news/{{news.id}}">0 comments</a></p>
         </article>
     </section>
   </div>
@@ -20,7 +20,7 @@
   <div class="row">
       <div class="col-lg-6">
        <form role="form" id="formComment">
-          <input type="hidden" name="page_id" value="{{page.id}}">
+          <input type="hidden" name="news_id" value="{{news.id}}">
           <input type="hidden" name="comment_id" value="-1">
           <input type="hidden" name="parent_id" value="-1">
           <div class="form-group">
@@ -38,8 +38,8 @@
       <article data-comment-id="{{comment.id}}" class="comment" id="{{comment.id}}">
       <span class="avatar"><img src="http://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=48"></span>
         <span class="info"><span class="username"><a href="/user/{{comment.user.username}}">{{comment.user.username}}</a></span> time ago
-        <a class="reply" href="/comment/{{comment.page_id}}/{{comment.id}}">link</a>
-        <a class="reply" href="/reply/{{comment.page_id}}/{{comment.id}}">reply</a>
+        <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">link</a>
+        <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">reply</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
         <pre>{{comment.text}}</pre>
       </article>
