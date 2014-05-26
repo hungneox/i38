@@ -3,3 +3,4 @@ Jinja2==2.7.2
 PyMySQL==0.6.2
 SQLAlchemy==0.9.4
 alembic==0.6.5
+tld==0.6.4

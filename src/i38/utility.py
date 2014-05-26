@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+
 class Utility(object):
     @staticmethod
     def time_ago(created_at):

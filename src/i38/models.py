@@ -13,7 +13,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy import func
 from sqlalchemy import desc
 from datetime import datetime
-from utility import Utility
+# from utility import Utility
 import hashlib
 
 # Helper to map and register a Python class a db table
@@ -148,7 +148,7 @@ class Comment(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     vote_up = Column(Integer)
     vote_down = Column(Integer)
-    path = Column(String(1024))
+    path = Column(String(255),index=True)
     level = Column(Integer, default=1)
     text = Column(UnicodeText)
     created_at = Column(DateTime)
