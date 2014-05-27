@@ -91,7 +91,7 @@
                 editor.run();
 
                 $('.md').each(function(){
-                  var text = $(this).text();
+                  text = $(this).html().trim();
                   $(this).html(converter.makeHtml(text));
                 });
             });
