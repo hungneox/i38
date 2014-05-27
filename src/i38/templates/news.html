@@ -14,9 +14,11 @@
           <address>at {{ news.tld() }}</address>
           <a href="#down" class="downarrow disabled">▼</a>
           <p>{{ news.vote_up }} up and {{ news.vote_down }} down, posted by <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> {{ news.time_ago() }} <a href="/news/{{news.id}}">{{ news.comments }} comments</a></p>
-          <pre>
-            {{ news.description }}
-          </pre>
+          <div class="user-text-body">
+            <div class="md">
+              {{ news.description }}
+            </div>
+          </div>
         </article>
     </section>
   </div>
@@ -30,10 +32,12 @@
           <input type="hidden" name="parent_id" value="-1">
           <div class="form-group">
           <label for="comment">Comment</label>
-          <textarea name="text" id="" cols="30" rows="10" class="form-control"></textarea>
+          <div id="wmd-button-bar"></div>
+          <textarea name="text" id="wmd-input" cols="30" rows="10" class="form-control wmd-input"></textarea>
         </div>
         <button type="button" id="post_comment" name="post_comment" class="btn btn-default">Submit</button>
       </form>
+
     </div>
   </div>
   {% endif %}
@@ -46,7 +50,11 @@
         <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">link</a>
         <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">reply</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
-        <pre>{{comment.text}}</pre>
+        <div class="user-comment">
+          <div class="md">
+            {{comment.text}}
+          </div>
+        </div>
       </article>
       {% endfor %}
     </div>

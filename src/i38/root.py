@@ -137,10 +137,19 @@ class Api(object):
           cherrypy.request.db.add(comment)
           cherrypy.request.db.flush()
           cherrypy.request.db.refresh(comment)
-          if comment.parent.path:
+          print(comment)
+          if comment.parent and comment.parent.path:
             path = comment.parent.path + '/' + str(comment.id)
           else:
             path = str(news_id) + '/' + str(comment.id)
+
+          if int(parent_id) != -1:
+            comment.sort = parent_id
+          else:
+            comment.sort = comment.id
+
+          cherrypy.request.db.commit()
+
           level = len(path.split("/"))
           cherrypy.request.db.query(Comment).filter_by(id=comment.id).update({"path":path,"level":level})
         except Exception as ex:

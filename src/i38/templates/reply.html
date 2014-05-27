@@ -11,7 +11,11 @@
         <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">link</a>
         <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">reply</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
-        <pre>{{ comment.text }}</pre>
+         <div class="user-comment">
+          <div class="md">
+            {{ comment.text }}
+          </div>
+          </div>
       </article>
     </div>
   </div>

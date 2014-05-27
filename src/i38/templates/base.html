@@ -4,11 +4,15 @@
     <title>{% block title %}{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/metro-bootstrap.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script
+    <link href="/css/wmd.css?v=105" rel="stylesheet"/>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/pagedown/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="/js/pagedown/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="/js/pagedown/Markdown.Editor.js"></script>
 </head>
-    <body>
+    <body class="metro">
     <nav class="navbar navbar-default" role="navigation">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -74,6 +78,22 @@
         <script>
             $(document).ready(function() {
                 $("#post_comment").click(post_comment);
+                var converter = Markdown.getSanitizingConverter();
+
+                converter.hooks.chain("preBlockGamut", function (text, rbg) {
+                    return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                        return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+                    });
+                });
+
+                var editor = new Markdown.Editor(converter);
+
+                editor.run();
+
+                $('.md').each(function(){
+                  var text = $(this).text();
+                  $(this).html(converter.makeHtml(text));
+                });
             });
         </script>
         <script>var apisecret = 'c992fd9b82125d5fef0e3dff1a5b058ae1cd459c';</script>

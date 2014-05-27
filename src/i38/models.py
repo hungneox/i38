@@ -13,7 +13,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy import func
 from sqlalchemy import desc
 from datetime import datetime
-# from utility import Utility
+from utility import Utility
 import hashlib
 
 # Helper to map and register a Python class a db table
@@ -151,6 +151,7 @@ class Comment(Base):
     path = Column(String(255),index=True)
     level = Column(Integer, default=1)
     text = Column(UnicodeText)
+    sort = Column(Integer)
     created_at = Column(DateTime)
 
     news = relationship('News', foreign_keys='Comment.news_id')
@@ -178,4 +179,4 @@ class Comment(Base):
 
     @staticmethod
     def list(news_id):
-        return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).order_by(Comment.path, Comment.created_at).all()
+        return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).order_by(desc(Comment.sort), Comment.path).all()
