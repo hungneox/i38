@@ -46,6 +46,11 @@ class Root(BaseController):
         return self.render("index",news_list=news_list, next_page=next_page)
 
     @cherrypy.expose
+    def default(self, attr='abc'):
+      cherrypy.response.status = 404
+      return self.render('404')
+
+    @cherrypy.expose
     def lastest(self, page=1):
       page_size = 10
       offset = (int(page)-1) * page_size
@@ -89,7 +94,7 @@ class Root(BaseController):
         return self.render('submit')
 
     @cherrypy.expose
-    def news(self, id):
+    def news(self, id, **kwargs):
         news = News.get(id)
         username = cherrypy.session.get(SESSION_USERNAME, None)
         is_user_logged_in = False
@@ -166,7 +171,7 @@ class Api(object):
           news.vote_up += 1
         elif direction == 'down':
           news.vote_down += 1
-        news.rank = News._rank(news.vote_up, news.vote_down, int(time.time()))
+        news.rank = News._rank(int(news.vote_up), int(news.vote_down), int(time.time()))
       except Exception as ex:
         return {"success": False, "news_id": news_id, "message": str(ex)}
       return {"success": True, "news_id": news_id}
