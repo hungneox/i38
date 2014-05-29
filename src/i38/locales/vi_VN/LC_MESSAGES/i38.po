@@ -44,3 +44,27 @@ msgstr "Mới nhất"
 
 msgid "Top"
 msgstr "Nổi bật"
+
+msgid "Previous"
+msgstr "Lui"
+
+msgid "Next"
+msgstr "Tới"
+
+msgid "posted by"
+msgstr "đăng bởi"
+
+msgid "days ago"
+msgstr "ngày trước"
+
+msgid "up"
+msgstr "hay"
+
+msgid "down"
+msgstr "dở"
+
+msgid "and"
+msgstr "và"
+
+msgid "In Vietnamese"
+msgstr "Tiếng Việt"
