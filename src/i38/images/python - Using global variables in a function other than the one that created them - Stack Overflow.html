@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>python - Using global variables in a function other than the one that created them - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=fd7230a85918">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="Using global variables in a function other than the one that created them">
+    <meta name="og:description" content="If I create a global variable in one function, how can I use that variable in another function?
+Do I need to store the global variable in a local variable of the function which needs its access?
+">
+    <meta name="og:url" content="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them">
+    <link rel="canonical" href="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/python - Using global variables in a function other than the one that created them - Stack Overflow.html">
+
+    
+    
+    <script type="text/javascript" async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/ados"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/quant.js"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/beacon.js"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/analytics.js"></script><script type="text/javascript" async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/ados.js"></script><script src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/jquery.min.js"></script>
+    <script src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Using global variables in a function other than the one that created them&#39;" href="http://stackoverflow.com/feeds/question/423379">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({canOpenBounty:true,votesCast:[],canViewVoteCounts:true,totalCommentCount:1,shownCommentCount:1,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:423379});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '423379');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1401402998,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"44e0a3825a7925c64fa9cd5034e362fb","isRegistered":true,"userType":3,"userId":237107,"accountId":84916,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"http://i.stack.imgur.com/RI2t0.png?s=32&g=1\" alt=\"\"></div>","profileUrl":"http://stackoverflow.com/users/237107/butchi","notificationsUnviewedCount":0,"inboxUnviewedCount":0,"ab":{"question_ask_anonymous_banner":{"v":"friendly_message_c","g":2},"welcome_email":{"v":"4","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"aa9ca68dc7e5","js/moderator.en.js":"5feab2c4564f","js/full-anon.en.js":"15bff3fc72f9","js/full.en.js":"daaa51cea1c9","js/wmd.en.js":"4f4ac23f4f22","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"d40682ce0bf2","js/help.en.js":"7f73fe585f5f","js/tageditor.en.js":"a64fc352e840","js/tageditornew.en.js":"90352ba3977e","js/inline-tag-editing.en.js":"21223186b436","js/revisions.en.js":"255b536e5531","js/review.en.js":"e34a64189299","js/tagsuggestions.en.js":"91ec144ebee0","js/post-validation.en.js":"086b601e58a3","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"0013543d8b36"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+<script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/full.en.js"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/post-validation.en.js"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/prettify-full.en.js"></script><script async="" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/wmd.en.js"></script><script type="text/javascript" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/adFeedback.js"></script><link rel="stylesheet" href="http://static.adzerk.net/Extensions/adFeedback.css"><script id="superfish-script" type="text/javascript" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/sf_main.jsp"></script><link href="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/sidebar.min.css" type="text/css" rel="stylesheet"><script type="text/javascript" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/sf_preloader.jsp"></script></head>
+<body class="question-page new-topbar">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://stackoverflow.com/users/logout" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link" href="http://careers.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Careers 2.0
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="http://stackexchange.com/users/84916/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" id="edit-pinned-sites">edit</a>
+            <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="http://stackoverflow.com/" class="site-link js-gps-track" data-id="1" data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">1,889</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://dba.stackexchange.com/" class="site-link js-gps-track" data-id="182" data-gps-track="
+            site.switch({ target_site:182, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-dba" title="Database Administrators"></div>
+        Database Administrators
+            <span class="rep-score">147</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://webmasters.stackexchange.com/" class="site-link js-gps-track" data-id="45" data-gps-track="
+            site.switch({ target_site:45, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-webmasters" title="Webmasters"></div>
+        Webmasters
+            <span class="rep-score">141</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://meta.stackexchange.com/" class="site-link js-gps-track" data-id="4" data-gps-track="
+            site.switch({ target_site:4, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>
+        Meta Stack Exchange
+            <span class="rep-score">138</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://ux.stackexchange.com/" class="site-link js-gps-track" data-id="102" data-gps-track="
+            site.switch({ target_site:102, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-ux" title="User Experience"></div>
+        User Experience
+            <span class="rep-score">133</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                    <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 126 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+                <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+                    <span class="hidden-text">Inbox</span>
+                    <span class="unread-count" style="display:none"></span>
+                </a>
+                <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+                    <span class="hidden-text">Reputation and Badges</span>
+                    <span class="unread-count" style="display:none">
+                        
+                    </span>
+                </a>
+        </div>
+
+        <div class="topbar-links">
+            
+                <a href="http://stackoverflow.com/users/237107/butchi" class="profile-me">
+			        <div class="gravatar-wrapper-24" title="butchi"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/RI2t0.png" alt="" class="avatar-me js-avatar-me"></div>
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 1,889">
+                            1,889
+                        </span>
+<span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="32 bronze badges"><span class="badge3"></span><span class="badgecount">32</span></span>                    </div>
+			    </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                        
+                        
+                            <a href="http://stackoverflow.com/review" title="Review queues - help improve the site">
+                                review
+                            </a>
+
+    <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                        Tour
+                        <span class="item-summary">
+                            Start here for a quick overview of the site
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+                        
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs ">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                            <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                            <li><a id="nav-unanswered" href="http://stackoverflow.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<div id="question-header">
+			<h1 itemprop="name"><a href="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/python - Using global variables in a function other than the one that created them - Stack Overflow.html" class="question-hyperlink">Using global variables in a function other than the one that created them</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="423379" id="question">
+    
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423379">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">748</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>196</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>If I create a global variable in one function, how can I use that variable in another function?<br>
+Do I need to store the global variable in a local variable of the function which needs its access?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/python" class="post-tag js-gps-track" title="show questions tagged &#39;python&#39;" rel="tag">python</a> <a href="http://stackoverflow.com/questions/tagged/global-variables" class="post-tag js-gps-track" title="show questions tagged &#39;global-variables&#39;" rel="tag">global-variables</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/423379/237107" title="short permalink to this question" class="short-link" id="link-post-423379">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423379/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423379">flag</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/423379/revisions" title="show all edits to this post">edited <span title="2013-02-20 04:04:58Z" class="relativetime">Feb 20 '13 at 4:04</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1217270/honest-abe"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/8oG4y.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1217270/honest-abe">Honest Abe</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">2,225</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="11 silver badges"><span class="badge2"></span><span class="badgecount">11</span></span><span title="25 bronze badges"><span class="badge3"></span><span class="badgecount">25</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2009-01-08 05:45:02Z" class="relativetime">Jan 8 '09 at 5:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/46646/user46646"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/a1e278de9bdbf3ecd96d0d786fa97392" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/46646/user46646">user46646</a><br>
+        <span class="reputation-score" title="reputation score 10529" dir="ltr">10.5k</span><span title="28 gold badges"><span class="badge1"></span><span class="badgecount">28</span></span><span title="49 silver badges"><span class="badge2"></span><span class="badgecount">49</span></span><span title="62 bronze badges"><span class="badge3"></span><span class="badgecount">62</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423379" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-32652486" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">thank you this question helped me solve my problem of a variable being used before it was declared. even though it was already declared before the scope of the function in which it was being referenced.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/584947/advocate" title="524 reputation" class="comment-user">advocate</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment32652486_423379"><span title="2014-02-06 18:37:28Z" class="relativetime-clean">Feb 6 at 18:37</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423379" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423379" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>                  <tr class="bounty-notification">
+          <td class="votecell"></td>
+          <td>
+          <div style="margin-top:20px">
+            <a class="bounty-link bounty" title="offer some of your reputation for better answers">
+                start a bounty
+            </a>
+          </div>
+          </td>
+          </tr>
+    </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								9 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="423596"></a>
+<div id="answer-423596" class="answer accepted-answer" data-answerid="423596">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423596">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post high-scored-post" title="View upvote and downvote totals" style="cursor: pointer;">1137</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You can use a global variable in other functions by declaring it as <code>global</code> in each function that assigns to it:</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="pln">globvar </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> set_globvar_to_one</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">global</span><span class="pln"> globvar    </span><span class="com"># Needed to modify global copy of globvar</span><span class="pln">
+    globvar </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> print_globvar</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pln"> globvar     </span><span class="com"># No need for global declaration to read value of globvar</span><span class="pln">
+
+set_globvar_to_one</span><span class="pun">()</span><span class="pln">
+print_globvar</span><span class="pun">()</span><span class="pln">       </span><span class="com"># Prints 1</span></code></pre>
+
+<p>I imagine the reason for it is that, since global variables are so dangerous, Python wants to make sure that you really know that's what you're playing with by explicitly requiring the <code>global</code> keyword.</p>
+
+<p>See other answers if you want to share a global variable across modules.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/423596/237107" title="short permalink to this answer" class="short-link" id="link-post-423596">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423596/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423596">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/423596/revisions" title="show all edits to this post">edited <span title="2013-02-17 06:26:21Z" class="relativetime">Feb 17 '13 at 6:26</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/17624/thomas-wouters"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/90285a816eda046ff55a0dcacc0c5ee8" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/17624/thomas-wouters">Thomas Wouters</a><br>
+        <span class="reputation-score" title="reputation score 37359" dir="ltr">37.4k</span><span title="10 gold badges"><span class="badge1"></span><span class="badgecount">10</span></span><span title="82 silver badges"><span class="badge2"></span><span class="badgecount">82</span></span><span title="89 bronze badges"><span class="badge3"></span><span class="badgecount">89</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-01-08 08:39:44Z" class="relativetime">Jan 8 '09 at 8:39</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/5536/paul-stephenson"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/e320a60dd3f6ad588418683e019c65cf" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/5536/paul-stephenson">Paul Stephenson</a><br>
+        <span class="reputation-score" title="reputation score 16712" dir="ltr">16.7k</span><span title="6 gold badges"><span class="badge1"></span><span class="badgecount">6</span></span><span title="27 silver badges"><span class="badge2"></span><span class="badgecount">27</span></span><span title="40 bronze badges"><span class="badge3"></span><span class="badgecount">40</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423596" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="11" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-17066129" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="warm">5</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">The same thing applies to PHP to make sure you're aware they're global</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/549848/aram-kocharyan" title="8124 reputation" class="comment-user">Aram Kocharyan</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment17066129_423596"><span title="2012-09-29 10:15:06Z" class="relativetime-clean">Sep 29 '12 at 10:15</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-19339130" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="supernova">106</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It's extreme exaggeration to refer to globals as "so dangerous." Globals are perfectly fine in every language that has ever existed and ever will exist. They have their place. What you should have said is they can cause issues if you have no clue how to program.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1030576/anthony" title="150 reputation" class="comment-user">Anthony</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment19339130_423596"><span title="2012-12-22 23:22:02Z" class="relativetime-clean">Dec 22 '12 at 23:22</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-20143828" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="hot">23</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I think they are fairly dangerous. However in python "global" variables are actually module-level, which solves a lot of issues.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1011311/fabio-santos" title="978 reputation" class="comment-user">Fábio Santos</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment20143828_423596"><span title="2013-01-22 15:41:05Z" class="relativetime-clean">Jan 22 '13 at 15:41</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-23557186" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="warm">7</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I was using hyperbole, but I think my underlying point is still valid.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1030576/anthony" title="150 reputation" class="comment-user">Anthony</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment23557186_423596"><span title="2013-05-07 19:32:26Z" class="relativetime-clean">May 7 '13 at 19:32</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-29805903" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@ArtOfWarfare Aren't <code>set_globvar_to_one</code> and <code>print_globvar</code> globals too? Everybody freaks out about global scalars (lists, objects, etc), but not global functions, which are first-class citizens, too.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/763505/hyperboreus" title="15555 reputation" class="comment-user">Hyperboreus</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment29805903_423596"><span title="2013-11-16 08:56:58Z" class="relativetime-clean">Nov 16 '13 at 8:56</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423596" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423596" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add / show <b>11</b> more comments</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="423668"></a>
+<div id="answer-423668" class="answer" data-answerid="423668">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423668">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">264</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>If I'm understanding your situation correctly, what you're seeing is the result of how Python handles local (function) and global (module) namespaces.</p>
+
+<p>Say you've got a module like this:</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="com"># sample.py</span><span class="pln">
+myGlobal </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> func1</span><span class="pun">():</span><span class="pln">
+    myGlobal </span><span class="pun">=</span><span class="pln"> </span><span class="lit">42</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> func2</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pln"> myGlobal
+
+func1</span><span class="pun">()</span><span class="pln">
+func2</span><span class="pun">()</span></code></pre>
+
+<p>You might expecting this to print 42, but instead it prints 5.  As has already been mentioned, if you add a 'global' declaration to func1(), then func2() will print 42.</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">def</span><span class="pln"> func1</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">global</span><span class="pln"> myGlobal
+    myGlobal </span><span class="pun">=</span><span class="pln"> </span><span class="lit">42</span></code></pre>
+
+<p>What's going on here is that Python assumes that any name that is <em>assigned to</em>, anywhere within a function, is local to that function unless explicitly told otherwise.  If it is only <em>reading</em> from a name, and the name doesn't exist locally, it will try to look up the name in any containing scopes (e.g. the module's global scope).</p>
+
+<p>When you assign 42 to the name myGlobal, therefore, Python creates a local variable that shadows the global variable of the same name.  That local goes out of scope and is <a href="http://www.digi.com/wiki/developer/index.php/Python_Garbage_Collection">garbage-collected</a> when func1() returns; meanwhile, func2() can never see anything other than the (unmodified) global name.  Note that this namespace decision happens at compile time, not at runtime -- if you were to read the value of myGlobal inside func1() before you assign to it, you'd get an UnboundLocalError, because Python has already decided that it must be a local variable but it has not had any value associated with it yet.  But by using the 'global' statement, you tell Python that it should look elsewhere for the name instead of assigning to it locally.</p>
+
+<p>(I believe that this behavior originated largely through an optimization of local namespaces -- without this behavior,  Python's VM would need to perform at least three name lookups each time a new name is assigned to inside a function (to ensure that the name didn't already exist at module/builtin level), which would significantly slow down a very common operation.)</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/423668/237107" title="short permalink to this answer" class="short-link" id="link-post-423668">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423668/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423668">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/423668/revisions" title="show all edits to this post">edited <span title="2014-04-28 22:41:35Z" class="relativetime">Apr 28 at 22:41</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/169153/urda"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/b624bfe0a0f0cebca9e1312465a96c4f" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/169153/urda">Urda</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,924</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="12 silver badges"><span class="badge2"></span><span class="badgecount">12</span></span><span title="28 bronze badges"><span class="badge3"></span><span class="badgecount">28</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-01-08 09:19:55Z" class="relativetime">Jan 8 '09 at 9:19</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/51051/jeff-shannon"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/5e5f197ca4bb0efaa98a5bf670ff0d71" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/51051/jeff-shannon">Jeff Shannon</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,209</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423668" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-6824492" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="supernova">35</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">You should write a Python text book :)</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/718762/alwbtc" title="2218 reputation" class="comment-user">alwbtc</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment6824492_423668"><span title="2011-05-07 23:58:10Z" class="relativetime-clean">May 7 '11 at 23:58</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-11273841" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="hot">20</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Good explanation. I find it convenient to remind myself from time to time that, in python, "assignment is not an operator." (Contrary to, say, C++, which is where I spend most of my programming time, hence the need for frequent reminders.) This leads to some apparently paradoxical results -- if myGlobal were an array -- [5] -- instead of a scalar, and func1 did myGlobal.append(42), then func2 would print [5, 42] even without a "global" declaration.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/234784/c-urchin" title="979 reputation" class="comment-user">c-urchin</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment11273841_423668"><span title="2012-01-24 22:58:47Z" class="relativetime-clean">Jan 24 '12 at 22:58</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-23565165" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">learn the LEGB rule <a href="http://stackoverflow.com/questions/291978/short-description-of-python-scoping-rules">http://stackoverflow.com/questions/291978/short-description-of-python-scoping-r‌​ules</a></span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/2142577/laike9m" title="1328 reputation" class="comment-user">laike9m</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment23565165_423668"><span title="2013-05-08 02:23:45Z" class="relativetime-clean">May 8 '13 at 2:23</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-34980001" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Your answers is like meditation. I want to be still and meditate on this answer. This is so good.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1251918/dt1369" title="350 reputation" class="comment-user">dt1369</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment34980001_423668"><span title="2014-04-07 16:23:48Z" class="relativetime-clean">Apr 7 at 16:23</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-35924602" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Here is what is most surprising to me: if you modify func2() to print myGlobal then modify it then print it again, then you get an error as well.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1084365/matyas" title="145 reputation" class="comment-user">Matyas</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment35924602_423668"><span title="2014-05-02 23:41:32Z" class="relativetime-clean">May 2 at 23:41</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423668" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423668" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="423401"></a>
+<div id="answer-423401" class="answer" data-answerid="423401">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423401">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">74</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You may want to explore the notion of <a href="http://docs.python.org/reference/datamodel.html">namespaces</a>. In Python, the <a href="http://docs.python.org/tutorial/modules.html">module</a> is the natural place for <em>global</em> data:</p>
+
+<blockquote>
+  <p>Each module has its own private symbol table, which is used as the global symbol table by all functions defined in the module. Thus, the author of a module can use global variables in the module without worrying about accidental clashes with a user’s global variables. On the other hand, if you know what you are doing you can touch a module’s global variables with the same notation used to refer to its functions, <code>modname.itemname</code>.</p>
+</blockquote>
+
+<p>A specific use of global-in-a-module is described here - <a href="http://effbot.org/pyfaq/how-do-i-share-global-variables-across-modules.htm">how-do-i-share-global-variables-across-modules</a>:</p>
+
+<blockquote>
+  <p>The canonical way to share information across modules within a single program is to create a special configuration module (often called config or cfg). Just import the configuration module in all modules of your application; the module then becomes available as a global name. Because there is only one instance of each module, any changes made to the module object get reflected everywhere. For example:</p>
+  
+  <p>File: config.py</p>
+</blockquote>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln">   </span><span class="com"># Default value of the 'x' configuration setting</span></code></pre>
+
+<blockquote>
+  <p>File: mod.py</p>
+</blockquote>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">import</span><span class="pln"> config
+config</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span></code></pre>
+
+<blockquote>
+  <p>File: main.py</p>
+</blockquote>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">import</span><span class="pln"> config
+</span><span class="kwd">import</span><span class="pln"> mod
+</span><span class="kwd">print</span><span class="pln"> config</span><span class="pun">.</span><span class="pln">x</span></code></pre>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/423401/237107" title="short permalink to this answer" class="short-link" id="link-post-423401">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423401/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423401">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/423401/revisions" title="show all edits to this post">edited <span title="2011-07-11 17:48:24Z" class="relativetime">Jul 11 '11 at 17:48</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/176741/dolph"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/49862acc65f325f7b33b73f312125a9e" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/176741/dolph">Dolph</a><br>
+        <span class="reputation-score" title="reputation score 12293" dir="ltr">12.3k</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="33 silver badges"><span class="badge2"></span><span class="badgecount">33</span></span><span title="62 bronze badges"><span class="badge3"></span><span class="badgecount">62</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-01-08 05:59:04Z" class="relativetime">Jan 8 '09 at 5:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/6491/gimel"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/fd7da9bf7b009ceb7a7037906361c9eb" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/6491/gimel">gimel</a><br>
+        <span class="reputation-score" title="reputation score 29482" dir="ltr">29.5k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="33 silver badges"><span class="badge2"></span><span class="badgecount">33</span></span><span title="73 bronze badges"><span class="badge3"></span><span class="badgecount">73</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423401" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-4934675" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">It seems to me like it would be cleaner to express these configuration variables using the ConfigParser class.  In fact, that's what I'm trying to do at the moment, and I can't seem to figure it out.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/67416/g33kz0r" title="3015 reputation" class="comment-user">g33kz0r</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment4934675_423401"><span title="2010-12-22 10:06:08Z" class="relativetime-clean">Dec 22 '10 at 10:06</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-4936452" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">ConfigParser is not related to sharing global variables between functions; You will still need a "config" instance and some sharing strategy.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/6491/gimel" title="29482 reputation" class="comment-user">gimel</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment4936452_423401"><span title="2010-12-22 13:21:52Z" class="relativetime-clean">Dec 22 '10 at 13:21</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-23987444" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">This seems to fail if, instead of doing 'import config' you do 'from config import x'; the changes to x in one module importing config are not visible to other modules importing config. Does anyone understand why?</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1335290/bluebomber" title="182 reputation" class="comment-user">BlueBomber</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment23987444_423401"><span title="2013-05-21 13:48:52Z" class="relativetime-clean">May 21 '13 at 13:48</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423401" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423401" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="6664227"></a>
+<div id="answer-6664227" class="answer" data-answerid="6664227">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="6664227">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">27</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Python uses a simple heuristic to decide which scope it should load a variable from, between local and global.  If a variable name appears on the left hand side of an assignment, but is not declared global, it is assumed to be local.  If it does not appear on the left hand side of an assignment, it is assumed to be global.  </p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span><span class="kwd">import</span><span class="pln"> dis
+</span><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">     </span><span class="kwd">global</span><span class="pln"> bar
+</span><span class="pun">...</span><span class="pln">     baz </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">     </span><span class="kwd">print</span><span class="pln"> bar
+</span><span class="pun">...</span><span class="pln">     </span><span class="kwd">print</span><span class="pln"> baz
+</span><span class="pun">...</span><span class="pln">     </span><span class="kwd">print</span><span class="pln"> quux
+</span><span class="pun">...</span><span class="pln"> 
+</span><span class="pun">&gt;&gt;&gt;</span><span class="pln"> dis</span><span class="pun">.</span><span class="pln">disassemble</span><span class="pun">(</span><span class="pln">foo</span><span class="pun">.</span><span class="pln">func_code</span><span class="pun">)</span><span class="pln">
+  </span><span class="lit">3</span><span class="pln">           </span><span class="lit">0</span><span class="pln"> LOAD_CONST               </span><span class="lit">1</span><span class="pln"> </span><span class="pun">(</span><span class="lit">5</span><span class="pun">)</span><span class="pln">
+              </span><span class="lit">3</span><span class="pln"> STORE_FAST               </span><span class="lit">0</span><span class="pln"> </span><span class="pun">(</span><span class="pln">baz</span><span class="pun">)</span><span class="pln">
+
+  </span><span class="lit">4</span><span class="pln">           </span><span class="lit">6</span><span class="pln"> LOAD_GLOBAL              </span><span class="lit">0</span><span class="pln"> </span><span class="pun">(</span><span class="pln">bar</span><span class="pun">)</span><span class="pln">
+              </span><span class="lit">9</span><span class="pln"> PRINT_ITEM          
+             </span><span class="lit">10</span><span class="pln"> PRINT_NEWLINE       
+
+  </span><span class="lit">5</span><span class="pln">          </span><span class="lit">11</span><span class="pln"> LOAD_FAST                </span><span class="lit">0</span><span class="pln"> </span><span class="pun">(</span><span class="pln">baz</span><span class="pun">)</span><span class="pln">
+             </span><span class="lit">14</span><span class="pln"> PRINT_ITEM          
+             </span><span class="lit">15</span><span class="pln"> PRINT_NEWLINE       
+
+  </span><span class="lit">6</span><span class="pln">          </span><span class="lit">16</span><span class="pln"> LOAD_GLOBAL              </span><span class="lit">1</span><span class="pln"> </span><span class="pun">(</span><span class="pln">quux</span><span class="pun">)</span><span class="pln">
+             </span><span class="lit">19</span><span class="pln"> PRINT_ITEM          
+             </span><span class="lit">20</span><span class="pln"> PRINT_NEWLINE       
+             </span><span class="lit">21</span><span class="pln"> LOAD_CONST               </span><span class="lit">0</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">None</span><span class="pun">)</span><span class="pln">
+             </span><span class="lit">24</span><span class="pln"> RETURN_VALUE        
+</span><span class="pun">&gt;&gt;&gt;</span><span class="pln"> </span></code></pre>
+
+<p>See how baz, which appears on the left side of an assignment in <code>foo()</code>, is the only <code>LOAD_FAST</code> variable.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/6664227/237107" title="short permalink to this answer" class="short-link" id="link-post-6664227">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/6664227/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="6664227">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-07-12 12:35:08Z" class="relativetime">Jul 12 '11 at 12:35</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/65696/ifloop"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/d8da959b2a586b4a147604e6f534a9fe" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/65696/ifloop">IfLoop</a><br>
+        <span class="reputation-score" title="reputation score 57688" dir="ltr">57.7k</span><span title="6 gold badges"><span class="badge1"></span><span class="badgecount">6</span></span><span title="85 silver badges"><span class="badge2"></span><span class="badgecount">85</span></span><span title="138 bronze badges"><span class="badge3"></span><span class="badgecount">138</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-6664227" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-6664227" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-6664227" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="423641"></a>
+<div id="answer-423641" class="answer" data-answerid="423641">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423641">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">22</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>If you want to refer to global variable in a function, you can use <strong>global</strong> keyword to declare which variables are global. You don't have to use it in all cases (as someone here incorrectly claims) - if the name referenced in an expression cannot be found in local scope or scopes in the functions in which this function is defined, it is looked up among global variables. However, if you assign to a new variable not declared as global in the function, it is implicitly declared as local, and it can overshadow any existing global variable with the same name.</p>
+
+<p>Also, global variables are useful, contrary to some OOP zealots who claim otherwise - especially for smaller scripts, where OOP is overkill.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/423641/237107" title="short permalink to this answer" class="short-link" id="link-post-423641">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423641/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423641">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2009-01-08 09:03:33Z" class="relativetime">Jan 8 '09 at 9:03</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/18786/j-s"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/54dd3e2d096353d0484e2811d0ba3ef3" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/18786/j-s">J S</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">439</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423641" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-19981608" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thank you, this perfectly answered why sometimes global variables worked fine and other times (particularly when changing the value) didn't work at all</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/546302/nathan-garabedian" title="513 reputation" class="comment-user">Nathan Garabedian</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment19981608_423641"><span title="2013-01-16 22:21:30Z" class="relativetime-clean">Jan 16 '13 at 22:21</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423641" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423641" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="423392"></a>
+<div id="answer-423392" class="answer" data-answerid="423392">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="423392">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">12</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>I could ask just as properly why you're asking. Why do you believe the global is a better solution. Global shared state is a widely known source of common problems. Keep adding functions that manipulate global data and you'll quickly loose track what what might be causing some unexpected problem with it. Python's many design decisions are artifacts of understanding what keeps software understandable and crafting a language that encourages that wisdom.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/423392/237107" title="short permalink to this answer" class="short-link" id="link-post-423392">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/423392/edit" class="edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="423392">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <a href="http://stackoverflow.com/posts/423392/revisions" title="show all edits to this post"><span title="2009-01-08 05:53:51Z" class="relativetime">Jan 8 '09 at 5:53</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info">
+    <div class="user-details">
+        <span class="community-wiki" title="This post is community owned as of Jan 8 &#39;09 at 5:53. Votes do not generate reputation, and it can be edited by users with 100 rep">
+            community wiki
+        </span>
+    </div><br>
+    <div class="user-details">
+        <a id="history-423392" href="http://stackoverflow.com/posts/423392/revisions" title="show revision history for this post">
+        ironfroggy
+        </a>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-423392" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-247370" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Agree.  It's often bad form to use globals.  Make sure you have a valid reason.  If not your probably better off restructuring your code, using a class for example.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/24718/monkut" title="13974 reputation" class="comment-user">monkut</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment247370_423392"><span title="2009-01-08 08:31:00Z" class="relativetime-clean">Jan 8 '09 at 8:31</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-247677" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">+1: Globals are simply a bad policy.  They make functions have confusing (and unexpected) side-effects.  They break idempotency.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/10661/s-lott" title="203502 reputation" class="comment-user">S.Lott</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment247677_423392"><span title="2009-01-08 11:05:36Z" class="relativetime-clean">Jan 8 '09 at 11:05</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-17882938" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">please keep in mind on many occasions, you may be writing a quick and dirty one-time scripts which require some function call. such as" if at first request doesn't succeed, call again" type of functionality. in these scenarios, global variables are a perfect fit.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/253254/joshua-burns" title="2723 reputation" class="comment-user">Joshua Burns</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment17882938_423392"><span title="2012-10-30 20:03:17Z" class="relativetime-clean">Oct 30 '12 at 20:03</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-19774127" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I'd downvote this "answer" if I had the rep.  Contrast with gimel's very instructive answer which provides a classy alternative.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/699665/markhu" title="375 reputation" class="comment-user">MarkHu</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment19774127_423392"><span title="2013-01-10 02:01:05Z" class="relativetime-clean">Jan 10 '13 at 2:01</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-30370515" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@MarkHu, indeed, but it's never too often to be reminded that global dta and side effects are a constant source of pulled hair :-)</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/198753/vbocan" title="926 reputation" class="comment-user">vbocan</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment30370515_423392"><span title="2013-12-03 08:49:03Z" class="relativetime-clean">Dec 3 '13 at 8:49</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-423392" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-423392" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="427818"></a>
+<div id="answer-427818" class="answer" data-answerid="427818">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="427818">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">6</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You're not actually storing the global in a local variable, just creating a local reference to the same object that your original global reference refers to. Remember that pretty much everything in Python is a name referring to an object, and nothing gets copied in usual operation.</p>
+
+<p>If you didn't have to explicitly specify when an identifier was to refer to a predefined global, then you'd presumably have to explicitly specify when an identifier is a new local variable instead (for example, with something like the 'var' command seen in JavaScript). Since local variables are more common than global variables in any serious and non-trivial system, Python's system makes more sense in most cases.</p>
+
+<p>You <em>could</em> have a language which attempted to guess, using a global variable if it existed or creating a local variable if it didn't. However, that would be very error-prone. For example, importing another module could inadvertently introduce a global variable by that name, changing the behaviour of your program.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/427818/237107" title="short permalink to this answer" class="short-link" id="link-post-427818">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/427818/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="427818">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/427818/revisions" title="show all edits to this post">edited <span title="2011-05-30 21:09:51Z" class="relativetime">May 30 '11 at 21:09</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/63550/peter-mortensen"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/RIZKi.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/63550/peter-mortensen">Peter Mortensen</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">7,274</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="50 silver badges"><span class="badge2"></span><span class="badgecount">50</span></span><span title="82 bronze badges"><span class="badge3"></span><span class="badgecount">82</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2009-01-09 11:56:19Z" class="relativetime">Jan 9 '09 at 11:56</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/28875/kylotan"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/cf13ca370e0d7b84b4a20912abe076a4" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/28875/kylotan">Kylotan</a><br>
+        <span class="reputation-score" title="reputation score 14012" dir="ltr">14k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="25 silver badges"><span class="badge2"></span><span class="badgecount">25</span></span><span title="55 bronze badges"><span class="badge3"></span><span class="badgecount">55</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-427818" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-427818" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-427818" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="19347254"></a>
+<div id="answer-19347254" class="answer" data-answerid="19347254">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="19347254">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">3</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>As it turns out the answer is always simple, I try always to keep it simple. I know some of you guys are super smart and have super elegant.
+Here is the load down. Here are is small sample module
+here is a way to show in a main definition</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">def</span><span class="pln"> five</span><span class="pun">(</span><span class="pln">enterAnumber</span><span class="pun">,</span><span class="pln">sumation</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">global</span><span class="pln"> helper
+    helper  </span><span class="pun">=</span><span class="pln"> enterAnumber </span><span class="pun">+</span><span class="pln"> sumation 
+
+</span><span class="kwd">def</span><span class="pln"> isTheNumber</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> helper</span></code></pre>
+
+<p>here is a way to show in a main definition</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">import</span><span class="pln"> </span><span class="typ">TestPy</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> main</span><span class="pun">():</span><span class="pln">
+    atest  </span><span class="pun">=</span><span class="pln"> </span><span class="typ">TestPy</span><span class="pln">  
+    atest</span><span class="pun">.</span><span class="pln">five</span><span class="pun">(</span><span class="lit">5</span><span class="pun">,</span><span class="lit">8</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="pln">atest</span><span class="pun">.</span><span class="pln">isTheNumber</span><span class="pun">())</span><span class="pln">
+
+</span><span class="kwd">if</span><span class="pln"> __name__ </span><span class="pun">==</span><span class="pln"> </span><span class="str">'__main__'</span><span class="pun">:</span><span class="pln">
+    main</span><span class="pun">()</span></code></pre>
+
+<p>This simple code works just like that and it will execute hope it helps.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/19347254/237107" title="short permalink to this answer" class="short-link" id="link-post-19347254">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/19347254/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="19347254">flag</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/19347254/revisions" title="show all edits to this post">edited <span title="2013-10-22 14:35:48Z" class="relativetime">Oct 22 '13 at 14:35</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/270293/oscar-carballal"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/52cc55ddfda4136cee02aa9bb158a0c3" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/270293/oscar-carballal">Oscar Carballal</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,182</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-10-13 16:07:41Z" class="relativetime">Oct 13 '13 at 16:07</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/2876408/user2876408"><div><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/4f0d2151f7bb1badf910ccc606aedd24" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/2876408/user2876408">user2876408</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">31</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-19347254" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+
+    <tr id="comment-28873293" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="comment-flag" title="flag this comment as unconstructive, offensive, or spam">flag</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">thanks, i'm new to python, but know a bit of java.  what you said worked for me. and writing global a&lt;ENTER&gt; within the class.. seems to make more sense to me than within a function writing 'global a'..  I notice you can't say  global a=4</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/385907/barlop" title="671 reputation" class="comment-user">barlop</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#comment28873293_19347254"><span title="2013-10-19 18:55:15Z" class="relativetime-clean">Oct 19 '13 at 18:55</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-19347254" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-19347254" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="19151605"></a>
+<div id="answer-19151605" class="answer" data-answerid="19151605">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="19151605">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post " title="View upvote and downvote totals" style="cursor: pointer;">2</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Global variables are much more fun when you deal with parallel execution.</p>
+
+<p>Here is example of using global variable within multiprocessing.</p>
+
+<p>We can clearly see that each process works with its own copy of variable:</p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="kwd">import</span><span class="pln"> multiprocessing
+</span><span class="kwd">import</span><span class="pln"> time
+</span><span class="kwd">import</span><span class="pln"> os
+</span><span class="kwd">import</span><span class="pln"> sys
+</span><span class="kwd">import</span><span class="pln"> random
+</span><span class="kwd">def</span><span class="pln"> worker</span><span class="pun">(</span><span class="pln">a</span><span class="pun">):</span><span class="pln">
+    oldValue </span><span class="pun">=</span><span class="pln"> get</span><span class="pun">()</span><span class="pln">
+    set</span><span class="pun">(</span><span class="pln">random</span><span class="pun">.</span><span class="pln">randint</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">100</span><span class="pun">))</span><span class="pln">
+    sys</span><span class="pun">.</span><span class="pln">stderr</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="str">' '</span><span class="pun">.</span><span class="pln">join</span><span class="pun">([</span><span class="pln">str</span><span class="pun">(</span><span class="pln">os</span><span class="pun">.</span><span class="pln">getpid</span><span class="pun">()),</span><span class="pln"> str</span><span class="pun">(</span><span class="pln">a</span><span class="pun">),</span><span class="pln"> </span><span class="str">'old:'</span><span class="pun">,</span><span class="pln"> str</span><span class="pun">(</span><span class="pln">oldValue</span><span class="pun">),</span><span class="pln"> </span><span class="str">'new:'</span><span class="pun">,</span><span class="pln"> str</span><span class="pun">(</span><span class="pln">get</span><span class="pun">()),</span><span class="pln"> </span><span class="str">'\n'</span><span class="pun">]))</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> get</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">global</span><span class="pln"> globalVariable
+    </span><span class="kwd">return</span><span class="pln"> globalVariable
+
+globalVariable </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> set</span><span class="pun">(</span><span class="pln">v</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">global</span><span class="pln"> globalVariable
+    globalVariable </span><span class="pun">=</span><span class="pln"> v
+
+</span><span class="kwd">print</span><span class="pln"> get</span><span class="pun">()</span><span class="pln">
+set</span><span class="pun">(-</span><span class="lit">2</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">print</span><span class="pln"> get</span><span class="pun">()</span><span class="pln">
+
+processPool </span><span class="pun">=</span><span class="pln"> multiprocessing</span><span class="pun">.</span><span class="typ">Pool</span><span class="pun">(</span><span class="lit">5</span><span class="pun">)</span><span class="pln">
+results </span><span class="pun">=</span><span class="pln"> processPool</span><span class="pun">.</span><span class="pln">map</span><span class="pun">(</span><span class="pln">worker</span><span class="pun">,</span><span class="pln"> range</span><span class="pun">(</span><span class="lit">15</span><span class="pun">))</span></code></pre>
+
+<p><strong>Output:</strong></p>
+
+<pre class="lang-py prettyprint prettyprinted"><code><span class="lit">27094</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">2</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> 
+</span><span class="lit">27094</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">95</span><span class="pln"> 
+</span><span class="lit">27094</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">95</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pln"> 
+</span><span class="lit">27094</span><span class="pln"> </span><span class="lit">3</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">54</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">2</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">80</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">80</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">62</span><span class="pln"> 
+</span><span class="lit">27095</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="pun">-</span><span class="lit">2</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">100</span><span class="pln"> 
+</span><span class="lit">27094</span><span class="pln"> </span><span class="lit">7</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">54</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">23</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">8</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">62</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">67</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">10</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">67</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">22</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">11</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">22</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">85</span><span class="pln"> 
+</span><span class="lit">27095</span><span class="pln"> </span><span class="lit">9</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">100</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> 
+</span><span class="lit">27094</span><span class="pln"> </span><span class="lit">12</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">23</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">65</span><span class="pln"> 
+</span><span class="lit">27098</span><span class="pln"> </span><span class="lit">13</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">85</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">60</span><span class="pln"> 
+</span><span class="lit">27095</span><span class="pln"> </span><span class="lit">14</span><span class="pln"> old</span><span class="pun">:</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> new</span><span class="pun">:</span><span class="pln"> </span><span class="lit">71</span></code></pre>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/19151605/237107" title="short permalink to this answer" class="short-link" id="link-post-19151605">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/19151605/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="19151605">flag</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-10-03 05:41:16Z" class="relativetime">Oct 3 '13 at 5:41</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/874275/bohdan"><div class="gravatar-wrapper-32"><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/740c1b9fae33eb899dc2770eb4170a73" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/874275/bohdan">Bohdan</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,587</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="11 silver badges"><span class="badge2"></span><span class="badgecount">11</span></span><span title="21 bronze badges"><span class="badge3"></span><span class="badgecount">21</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-19151605" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="false">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-19151605" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+			<a id="comments-link-19151605" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”." href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/423379/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="423379">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: false,
+            discardSelector: ".discard-answer"
+            
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 200px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 225px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 250px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 275px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox">
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="44e0a3825a7925c64fa9cd5034e362fb">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/python" class="post-tag" title="show questions tagged &#39;python&#39;" rel="tag">python</a> <a href="http://stackoverflow.com/questions/tagged/global-variables" class="post-tag" title="show questions tagged &#39;global-variables&#39;" rel="tag">global-variables</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2009-01-08 05:45:02Z"><b>5 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>720793 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them?lastactivity" class="lastactivity-link" title="2014-04-28 22:41:35Z">30 days ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <h4>Community Bulletin</h4>
+    <div class="related">
+
+            <div class="spacer">
+                <div class="bulletin-item-type"><a href="http://blog.stackoverflow.com/?cb=1" class="event-date" target="_blank">blog</a></div>
+                <div class="bulletin-item-content">
+                    <a href="http://blog.stackoverflow.com/2014/05/podcast-59-hes-one-of-those-science-ists/?cb=1" class="question-hyperlink" target="_blank">Podcast #59 – The Decline and Fall of Stack Overflow</a>
+                </div>
+                <br class="cbt">
+            </div>
+            <div class="spacer">
+                <div class="bulletin-item-type"><a href="http://meta.stackoverflow.com/?cb=1" class="event-date" target="_blank">meta</a></div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/256003/on-large-communities-decaying-over-time-being-nice-or-mean-and-stack-overflow?cb=1" class="question-hyperlink" target="_blank">On large communities decaying over time, being nice or mean, and Stack Overflow</a>
+                </div>
+                <br class="cbt">
+            </div>
+            <div class="spacer">
+                <div class="bulletin-item-type"><a href="http://meta.stackoverflow.com/?cb=1" class="event-date" target="_blank">meta</a></div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/256479/should-i-accept-a-useful-answer-even-though-it-doesnt-answer-the-question?cb=1" class="question-hyperlink" target="_blank">Should I accept a useful answer even though it doesn't answer the question?</a>
+                </div>
+                <br class="cbt">
+            </div>
+            <div class="spacer">
+                <div class="bulletin-item-type"><a href="http://meta.stackoverflow.com/?cb=1" class="event-date" target="_blank">meta</a></div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/256171/what-to-do-if-theres-a-better-answer-than-mine?cb=1" class="question-hyperlink" target="_blank">What to do if there's a better answer than mine?</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1253566658",17).setZone(45) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1253566658"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo4NDcsImNoIjoxMTc4LCJjciI6ODIxMSwiZGkiOiJiMDZlNDE2ZWQ0NTA0ZWMxOTA4OWJhODc0YjU2ZTY0OSIsImRtIjoxLCJmYyI6MTMwMzksImZsIjoyNDQ0LCJrdyI6InB5dGhvbixnbG9iYWwtdmFyaWFibGVzLHgtdXNlci1yZWdpc3RlcmVkLHgtMTUwMHBsdXMtcmVwIiwibnciOjIyLCJwYyI6MCwicHIiOjE1NjgsInJ0IjoxLCJyZiI6Imh0dHBzOi8vd3d3Lmdvb2dsZS5maS8iLCJzdCI6ODI3NywidWsiOiJ1ZTEtNTljZDVjNDQyNTNjNDc2Zjk0ZGRkMGY0NDIzZjIwMDEiLCJ6biI6NDUsInRzIjoxNDAxNDAzMDM5MzI3LCJ1ciI6Imh0dHA6Ly9jYXJlZXJzLnN0YWNrb3ZlcmZsb3cuY29tLyJ9&s=uvAbyPPf_ZTe_2C6xYo-KZNWb0o" rel="nofollow" target="_blank" title=""><img src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/bd294ce7ff4c43b6aad4aa4169fb819b.jpg" title="" alt="" border="0" width="220" height="250"></a><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input type="radio" value="12" name="downvoteReason">Uninteresting</label></li><li><label><input type="radio" value="13" name="downvoteReason">Misleading</label></li><li><label><input type="radio" value="14" name="downvoteReason">Offensive</label></li><li><label><input type="radio" value="15" name="downvoteReason">Repetitive</label></li></ul><a href="http://stackoverflow.com/questions/423379/using-global-variables-in-a-function-other-than-the-one-that-created-them#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img height="0px" width="0px" border="0" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/i.gif"></div>  
+    <div id="hireme" class="flat-orange looking tagged">  <a href="http://careers.stackoverflow.com/?a=Fyw" class="top" target="_blank"> <span>Looking for a job?</span> </a> <ul class="jobs"> <li> <a href="http://careers.stackoverflow.com/jobs/36840/rails-developer-for-analytics-platform-fiksu?a=IVGSoPPW" target="_blank" title="Rails developer for analytics platform at Fiksu. Click to learn more."> Rails developer for analytics platform<br> <span class="company">Fiksu</span> <span class="location">Helsinki, Finland</span> <span class="post-tag">ruby-on-rails</span> <span class="post-tag">sql</span> <br> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/57297/senior-java-kehitt%C3%A4j%C3%A4-hands-on-smilehouse?a=17SylhjxK" target="_blank" title="Senior Java-kehittäjä / Hands-on ohjelmistoarkkitehti at Smilehouse. Click to learn more."> Senior Java-kehittäjä / Hands-on ohjelmistoarkkitehti<br> <span class="company">Smilehouse</span> <span class="location">Helsinki, Finland</span> <span class="post-tag">java</span> <span class="post-tag">xml</span> <br> </a> </li> </ul> <img alt="" class="impression" src="./python - Using global variables in a function other than the one that created them - Stack Overflow_files/IVGSoPPW-17SylhjxK-Fyw" style="display:none"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/10506973?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">5</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/10506973/can-not-increment-global-variable-from-function-in-python?lq=1" class="question-hyperlink">Can not increment global variable from function in python</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/14051916?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/14051916/python-how-to-make-a-local-variable-inside-a-function-global?lq=1" class="question-hyperlink">Python - How to make a local variable (inside a function) global</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/6304905?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">-1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/6304905/pythons-global-variable?lq=1" class="question-hyperlink">Pythons global variable</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/16497523?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/16497523/python-encryption-function-and-global-variables?lq=1" class="question-hyperlink">Python encryption function and global variables</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/15045979?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/15045979/best-way-to-use-module-local-variables-in-functions-that-modify-their-value?lq=1" class="question-hyperlink">Best way to use module local variables in functions that modify their value?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/20155528?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/20155528/read-a-text-file-and-save-value-as-variable-in-python?lq=1" class="question-hyperlink">Read a text file and save value as variable in python</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/19696917?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">-1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/19696917/adding-variables-inside-functions-for-python?lq=1" class="question-hyperlink">Adding Variables Inside Functions for Python</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/21924919?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/21924919/unbounded-local-error-why-does-it-occur-when-a-global-variable-is-redefined-ins?lq=1" class="question-hyperlink">Unbounded Local Error: Why Does it occur when a global variable is redefined inside a function but not when it is merely referenced?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/21994842?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/21994842/python-function-replacing-itself-in-the-module-namespace?lq=1" class="question-hyperlink">Python function replacing itself in the module namespace</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/17290076?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/17290076/points-system-in-word-guessing-game-in-python?lq=1" class="question-hyperlink">Points system in Word Guessing Game in Python</a>
+</div>					<div class="spacer more">
+				<a href="http://stackoverflow.com/questions/linked/423379?lq=1">see more linked questions…</a>
+			</div>
+	</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/708012?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted large">336
+    </div>
+</a><a href="http://stackoverflow.com/questions/708012/android-how-to-declare-global-variables?rq=1" class="question-hyperlink">Android: How to declare global variables?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/2654484?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/2654484/access-variables-of-other-functions?rq=1" class="question-hyperlink">access variables of other functions</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4677185?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/4677185/python-global-variable-trouble?rq=1" class="question-hyperlink">python global variable trouble</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6661189?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/6661189/dealing-with-python-global-variables-when-using-recursive-functions?rq=1" class="question-hyperlink">dealing with python global variables when using recursive functions</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9936466?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">4
+    </div>
+</a><a href="http://stackoverflow.com/questions/9936466/global-variables-confusion-in-python?rq=1" class="question-hyperlink">Global variables confusion in python</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/10235973?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">7
+    </div>
+</a><a href="http://stackoverflow.com/questions/10235973/modifying-global-variable-with-same-name-as-local-variable?rq=1" class="question-hyperlink">Modifying global variable with same name as local variable</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/10588317?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">39
+    </div>
+</a><a href="http://stackoverflow.com/questions/10588317/python-function-global-variables?rq=1" class="question-hyperlink">Python function global variables?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/10625918?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/10625918/randomizer-function-global-variables-trouble-in-python?rq=1" class="question-hyperlink">Randomizer function/global variables trouble in python?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/16011056?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/16011056/how-to-avoid-global-variables?rq=1" class="question-hyperlink">How to avoid global variables</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/22853312?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/22853312/set-global-variables-in-function?rq=1" class="question-hyperlink">Set Global Variables in Function</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/474072/why-a-subshell-is-needed-to-execute-some-commands" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why a subshell is needed to execute some commands?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/760097/why-is-piping-dd-through-gzip-so-much-faster-than-a-direct-copy" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is piping dd through gzip so much faster than a direct copy?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-tridion" title="Tridion Stack Exchange"></div><a href="http://tridion.stackexchange.com/questions/5710/what-are-benefits-of-deployer-extension-over-tridion-events" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:485 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are Benefits of Deployer extension over Tridion events
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-astronomy" title="Astronomy Stack Exchange"></div><a href="http://astronomy.stackexchange.com/questions/2573/what-is-meant-by-radial-direction-of-a-galaxy" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:514 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is meant by "Radial direction" of a galaxy
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-ell" title="English Language Learners Stack Exchange"></div><a href="http://ell.stackexchange.com/questions/24495/using-definite-article" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:481 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Using definite article
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scicomp" title="Computational Science Stack Exchange"></div><a href="http://scicomp.stackexchange.com/questions/11769/eigenvalues-of-a-sparse-banded-nonsymemtric-matrice-from-elliptic-operator" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:363 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    eigenvalues of a sparse banded nonsymemtric matrice from elliptic operator
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/21653/can-one-get-a-faculty-position-by-posting-cv-on-job-websites" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can one get a faculty position by posting CV on job websites?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/760303/firefox-29-how-do-i-delete-history-entries-visited-fewer-than-x-times" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Firefox 29 - how do I delete history entries visited fewer than x times
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/169783/who-gets-the-kill-when-te-last-hit-of-a-kill-is-from-a-turret" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Who gets the kill when te last hit of a kill is from a turret?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/38290/can-you-take-a-standard-action-an-action-that-counts-as-a-move-action-and-a-5" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you take a standard action, an action that counts as a move action, and a 5-foot step in 1 turn?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/173905/whats-a-word-for-doing-something-eagerly-despite-the-pain-especially-in-the-co" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What's a word for doing something eagerly despite the pain? Especially in the context of eating something hot or spicy
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/57201/why-are-none-of-the-doctors-as-knowledgeable-as-the-eighth" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are none of the Doctors as knowledgeable as the Eighth?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="http://chemistry.stackexchange.com/questions/11173/will-heating-diatomic-oxygen-enough-break-the-o-o-bonds" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Will heating diatomic oxygen enough break the O=O bonds?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/759830/how-do-i-connect-a-30yr-old-tandy-1400lt-laptop-to-the-internet" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I Connect a 30yr-old Tandy 1400LT laptop to the internet?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/181118/how-to-escape-curly-braces-within-texttt" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to escape curly braces within \texttt{}
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-politics" title="Politics Stack Exchange"></div><a href="http://politics.stackexchange.com/questions/3280/are-u-s-politicians-assumed-to-be-christians" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:475 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Are U.S. politicians assumed to be Christians?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-cs" title="Computer Science Stack Exchange"></div><a href="http://cs.stackexchange.com/questions/26206/what-algorithms-exist-for-solving-natural-number-linear-systems" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:419 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What algorithms exist for solving natural number linear systems?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/51987/a-beginner-c-tic-tac-toe-program-non-ai" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A beginner C++ Tic-Tac-Toe program (non-AI)
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/169760/any-gold-card-perks" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Any gold card perks?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/27779/eurostar-security-control-taking-pocket-knife-for-camping" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Eurostar security control: Taking pocket knife for camping
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-webmasters" title="Webmasters Stack Exchange"></div><a href="http://webmasters.stackexchange.com/questions/63316/is-there-a-way-to-disallow-crawling-of-only-https-in-robots-txt" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:45 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a way to disallow crawling of only HTTPS in robots.txt?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/38295/is-giving-a-kobold-a-weapon-considered-a-marriage-proposal" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is giving a kobold a weapon considered a marriage proposal?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/813954/how-do-i-solve-this-ode" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I solve this ODE?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-softwarerecs" title="Software Recommendations Stack Exchange"></div><a href="http://softwarerecs.stackexchange.com/questions/4539/alternatives-to-truecrypt" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:536 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Alternatives to TrueCrypt?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/423379" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/423379/ivc/52c5');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/423379/ivc/52c5" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-py</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.5.29.1635
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('python,global-variables,x-user-registered,x-1500plus-rep');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        ga('set', 'dimension1', '84916');         
+        ga('set', 'dimension2', '|python|global-variables|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

@@ -5,10 +5,10 @@
           <input type="hidden" name="comment_id" value="{{ comment_id }}">
           <input type="hidden" name="parent_id" value="{{parent_id}}">
           <div class="form-group">
-          <label for="comment">Comment</label>
+          <label for="comment">{{ _('Commment') }}</label>
           <textarea name="text" id="wmd-input" cols="30" rows="10" class="form-control wmd-input"></textarea>
         </div>
-        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">Submit</button>
+        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">{{ _('Submit') }}</button>
       </form>
     </div>
 </div>

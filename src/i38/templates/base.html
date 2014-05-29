@@ -30,9 +30,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 {% set navigation_bar = [
-                    ('/', 'index', 'Top'),
-                    ('/lastest', 'lastest', 'Lastest'),
-                    ('/submit', 'submit', 'Submit')
+                    ('/', 'index', _('Top')),
+                    ('/lastest', 'lastest', _('Lastest')),
+                    ('/submit', 'submit', _('Submit'))
                 ] -%}
 
                 {% for href, id, caption in navigation_bar %}
@@ -42,17 +42,22 @@
               </ul>
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
+                  <input type="text" class="form-control" placeholder="{{ _('Search') }}">
                 </div>
-                <button type="submit" class="btn btn-default">Search</button>
+                <button type="submit" class="btn btn-default">{{ _('Search') }}</button>
               </form>
               <ul class="nav navbar-nav navbar-right">
                {% if not is_user_logged_in %}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
+                <li><a href="/login">{{ _('Login') }}</a></li>
+                <li><a href="/register">{{ _('Register') }}</a></li>
                {% else %}
                 <li><a href="/user/{{ username }}">{{ username }}</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="/logout">{{ _('Logout') }}</a></li>
+               {% endif %}
+               {% if language == 'en_US' %}
+                <li><a href="/language/vi_VN">{{ _('In Vietnamese') }}</a></li>
+               {% else %}
+                <li><a href="/language/en_US">{{ _('In English') }}</a></li>
                {% endif %}
               </ul>
             </div><!-- /.navbar-collapse -->
@@ -99,5 +104,6 @@
             });
         </script>
         <script>var apisecret = 'c992fd9b82125d5fef0e3dff1a5b058ae1cd459c';</script>
+        <div class="clear-fix">&nbsp;</div>
     </body>
 </html>

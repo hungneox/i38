@@ -4,6 +4,7 @@ import cherrypy
 import urllib
 import json
 import time
+import gettext
 from tld import get_tld
 from models import *
 from tools import SAEnginePlugin
@@ -11,8 +12,23 @@ from tools import SATool
 from tools import RelativeEnvironment
 from utility import Utility
 from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
+from jinja2.ext import Extension, i18n
+from babel.core import Locale, UnknownLocaleError
+from babel.support import Translations, LazyProxy
 
-env = RelativeEnvironment(loader=FileSystemLoader(["templates"]))
+language = 'vi_VN'
+domain = 'i38'
+
+env = RelativeEnvironment(loader=FileSystemLoader(["templates"]), extensions=['jinja2.ext.i18n'])
+
+try:
+  trans = gettext.translation(domain, os.path.join(os.getcwd(), 'locales'), [language])
+except IOError:
+  # This probably means that there is no .mo file.
+  # FIXME: This needs to be generated during installation
+  trans = gettext.NullTranslations()
+
+env.install_gettext_translations(trans)
 
 def authenticate():
     user = cherrypy.session.get(SESSION_USERNAME, None)
@@ -27,6 +43,7 @@ class BaseController:
         template = env.get_template(name+".html")
         username = cherrypy.session.get(SESSION_USERNAME, None)
         data['is_user_logged_in'] = False
+        data['language'] = language
         if username:
             data['is_user_logged_in'] = True
             data['username'] = username
@@ -46,9 +63,13 @@ class Root(BaseController):
         return self.render("index",news_list=news_list, next_page=next_page)
 
     @cherrypy.expose
-    def default(self, attr='abc'):
+    def default(self):
       cherrypy.response.status = 404
       return self.render('404')
+
+    @cherrypy.expose
+    def help(self):
+      return "Help me!"
 
     @cherrypy.expose
     def lastest(self, page=1):
@@ -123,6 +144,14 @@ class Root(BaseController):
         else:
             user.created_time_ago = Utility.time_ago(user.created_at)
         return self.render('user', user=user, is_me=is_my_username, error_msg=msg)
+
+    @cherrypy.expose
+    def language(self, lang='en_US', from_page=None):
+      global language
+      language = lang
+      trans = gettext.translation(domain, os.path.join(os.getcwd(), 'locales'), [language])
+      env.install_gettext_translations(trans)
+      raise cherrypy.HTTPRedirect(from_page or "/")
 
 @cherrypy.popargs('api')
 class Api(object):

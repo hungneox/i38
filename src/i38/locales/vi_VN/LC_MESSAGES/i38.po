@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i38\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Hung Nguyen <hungnq1989@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: vi_VN\n"
+
+msgid "Search"
+msgstr "Tìm kiếm"
+
+msgid "Top news"
+msgstr "Tin nổi bật"
+
+msgid "Submit"
+msgstr "Gửi"
+
+msgid "Register"
+msgstr "Đăng ký"
+
+msgid "Login"
+msgstr "Đăng nhập"
+
+msgid "Logout"
+msgstr "Đăng xuất"
+
+msgid "Comment"
+msgstr "Bình luận"
+
+msgid "comments"
+msgstr "bình luận"
+
+msgid "comment"
+msgstr "bình luận"
+
+msgid "Lastest"
+msgstr "Mới nhất"
+
+msgid "Top"
+msgstr "Nổi bật"
