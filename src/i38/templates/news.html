@@ -13,7 +13,7 @@
           <h2><a href="{{news.site_url}}" rel="nofollow">{{news.site_title}}</a></h2>
           <address>at {{ news.tld() }}</address>
           <a href="#down" class="downarrow disabled">▼</a>
-          <p>{{ news.vote_up }} {{ _('up') }} {{ _('and') }} {{ news.vote_down }} {{ _('down') }}, {{ _('posted by') }} <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> {{ news.time_ago() }} <a href="/news/{{news.id}}">{{ news.comments }} {{ _('comments') }}</a></p>
+          <p>{{ news.vote_up }} {{ _('up') }} {{ _('and') }} {{ news.vote_down }} {{ _('down') }}, {{ _('posted by') }} <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> {{ news.time_ago()['duration'] }} {{ _(news.time_ago()['text']) }} <a href="/news/{{news.id}}">{{ news.comments }} {{ _('comments') }}</a></p>
           <div class="user-text-body">
             <div class="md">
               {{ news.description }}
@@ -45,9 +45,9 @@
      {% for comment in comments %}
       <article data-comment-id="{{comment.id}}" class="comment" id="{{news.id}}-{{comment.id}}" style="margin-left:{{ (comment.level-1) * 30}}px">
       <span class="avatar"><img src="http://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=48"></span>
-        <span class="info"><span class="username"><a href="/user/{{comment.user.username}}">{{comment.user.username}}</a></span> time ago
-        <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">link</a>
-        <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">reply</a>
+        <span class="info"><span class="username"><a href="/user/{{comment.user.username}}">{{comment.user.username}}</a></span> {{ comment.time_ago()['duration'] }} {{ _(comment.time_ago()['text']) }}
+        <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">{{ _('link') }}</a> |
+        <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">{{ _('reply') }}</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
         <div class="user-comment">
           <div class="md">

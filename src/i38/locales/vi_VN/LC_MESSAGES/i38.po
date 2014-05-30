@@ -66,6 +66,12 @@ msgstr "dở"
 msgid "and"
 msgstr "và"
 
+msgid "link"
+msgstr "liên kết"
+
+msgid "reply"
+msgstr "trả lời"
+
 msgid "seconds ago"
 msgstr "giây trước"
 

@@ -183,5 +183,9 @@ class Comment(Base):
     def list(news_id):
         return cherrypy.request.db.query(Comment).filter_by(news_id=news_id).order_by(desc(Comment.sort), Comment.path).all()
 
+    def time_ago(self):
+      result = Utility.time_ago(self.created_at)
+      return result
+
 # class Comment(Base):
 #     __tablename__ = 'comments'
