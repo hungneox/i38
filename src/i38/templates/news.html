@@ -13,7 +13,7 @@
           <h2><a href="{{news.site_url}}" rel="nofollow">{{news.site_title}}</a></h2>
           <address>at {{ news.tld() }}</address>
           <a href="#down" class="downarrow disabled">▼</a>
-          <p>{{ news.vote_up }} up and {{ news.vote_down }} down, posted by <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> {{ news.time_ago() }} <a href="/news/{{news.id}}">{{ news.comments }} comments</a></p>
+          <p>{{ news.vote_up }} {{ _('up') }} {{ _('and') }} {{ news.vote_down }} {{ _('down') }}, {{ _('posted by') }} <username><a href="/user/{{news.user.username}}">{{ news.user.username }}</a></username> {{ news.time_ago() }} <a href="/news/{{news.id}}">{{ news.comments }} {{ _('comments') }}</a></p>
           <div class="user-text-body">
             <div class="md">
               {{ news.description }}

@@ -53,6 +53,7 @@ article .downarrow.disabled, .uparrow.disabled {
   margin:10px 10px 10px 0px;
   padding: 10px;
   border-left: 1px solid lightblue;
+  border-bottom: 1px solid lightblue;
 }
 
 .md {
@@ -60,3 +61,4 @@ article .downarrow.disabled, .uparrow.disabled {
   overflow: auto;
   font-size: small;
 }
+

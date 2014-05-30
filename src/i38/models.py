@@ -15,6 +15,7 @@ from sqlalchemy import desc
 from datetime import datetime
 from utility import Utility
 import hashlib
+import gettext
 
 # Helper to map and register a Python class a db table
 Base = declarative_base()
@@ -59,7 +60,8 @@ class News(Base):
       return get_tld(self.site_url)
 
     def time_ago(self):
-      return Utility.time_ago(self.created_at)
+      result = Utility.time_ago(self.created_at)
+      return result
 
     @staticmethod
     def score(ups, downs):

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}{{ _('Homepage') }}{% endblock %}
 {% if lastest %}
   {% set active_page = "lastest" %}
 {% else %}
@@ -21,7 +21,7 @@
         <h2><a href="{{ news.site_url }}">{{ news.site_title }}</a></h2>
         <address>at {{ news.tld() }}</address>
         <a class="downarrow" href="#down">▼</a>
-        <p>{{ news.vote_up }} {{ _('up') }} {{ _('and') }} {{ news.vote_down }} {{ _('down') }}, {{ _('posted by') }} <username><a href="/user/{{ news.user.username }}">{{ news.user.username }}</a></username> {{ news.time_ago() }} <a href="/news/{{ news.id }}">{{ news.comments}} {{ _('comments') }}</a></p>
+        <p>{{ news.vote_up }} {{ _('up') }} {{ _('and') }} {{ news.vote_down }} {{ _('down') }}, {{ _('posted by') }} <username><a href="/user/{{ news.user.username }}">{{ news.user.username }}</a></username> {{ news.time_ago()['duration'] }} {{ _(news.time_ago()['text']) }} <a href="/news/{{ news.id }}">{{ news.comments}} {{ _('comments') }}</a></p>
      </article>
     {% endfor %}
   </div>

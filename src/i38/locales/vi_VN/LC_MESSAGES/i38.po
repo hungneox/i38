@@ -12,6 +12,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: vi_VN\n"
 
+msgid "Homepage"
+msgstr "Trang chủ"
+
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -54,9 +57,6 @@ msgstr "Tới"
 msgid "posted by"
 msgstr "đăng bởi"
 
-msgid "days ago"
-msgstr "ngày trước"
-
 msgid "up"
 msgstr "hay"
 
@@ -65,6 +65,42 @@ msgstr "dở"
 
 msgid "and"
 msgstr "và"
+
+msgid "seconds ago"
+msgstr "giây trước"
+
+msgid "second ago"
+msgstr "giây trước"
+
+msgid "minutes ago"
+msgstr "phút trước"
+
+msgid "minute ago"
+msgstr "phút trước"
+
+msgid "hours ago"
+msgstr "giờ trước"
+
+msgid "hour ago"
+msgstr "giờ trước"
+
+msgid "days ago"
+msgstr "ngày trước"
+
+msgid "day ago"
+msgstr "ngày trước"
+
+msgid "months ago"
+msgstr "tháng trước"
+
+msgid "month ago"
+msgstr "tháng trước"
+
+msgid "years ago"
+msgstr "năm trước"
+
+msgid "year ago"
+msgstr "năm trước"
 
 msgid "In Vietnamese"
 msgstr "Tiếng Việt"
