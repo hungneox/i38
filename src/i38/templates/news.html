@@ -50,7 +50,10 @@
         <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">{{ _('reply') }}</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
         {% if comment.user_id == user_id %}
-
+            {% if created_at(comment.created_at) <= 120 %}
+                <a href="/edit/{{comment.news_id}}/{{comment.id}}">{{ _('edit') }}</a>
+                ({{120 - created_at(comment.created_at)}} minutes left)
+            {% endif %}
         {% endif %}
         <div class="user-comment">
           <div class="md">

@@ -12,6 +12,7 @@ from tools import SATool
 from tools import RelativeEnvironment
 from utility import Utility
 from jinja2 import Environment, FileSystemLoader, PackageLoader, Template
+from jinja2 import contextfunction
 from jinja2.ext import Extension, i18n
 from babel.core import Locale, UnknownLocaleError
 from babel.support import Translations, LazyProxy
@@ -37,6 +38,14 @@ def authenticate():
         raise cherrypy.HTTPRedirect('/login?from_page=%s' % get_parmas)
 
 cherrypy.tools.authenticate = cherrypy.Tool('before_handler', authenticate)
+
+def created_at(created_at):
+  now = datetime.now()
+  diff = now - created_at
+  mins = diff.seconds // 60
+  return mins
+
+env.globals['created_at'] = created_at
 
 class BaseController:
     def render(self, name, **data):
@@ -128,6 +137,11 @@ class Root(BaseController):
 
     @cherrypy.expose
     def reply(self, news_id, comment_id):
+      comment = Comment.get(comment_id)
+      return self.render("reply", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1)
+
+    @cherrypy.expose
+    def edit(self, news_id, comment_id):
       comment = Comment.get(comment_id)
       return self.render("reply", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1)
 
