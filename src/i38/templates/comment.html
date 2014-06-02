@@ -8,7 +8,13 @@
           <label for="comment">{{ _('Commment') }}</label>
           <textarea name="text" id="wmd-input" cols="30" rows="10" class="form-control wmd-input"></textarea>
         </div>
-        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">{{ _('Submit') }}</button>
+        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">
+          {% if is_edit %}
+            {{ _('Edit') }}
+          {% else %}
+            {{ _('Submit') }}
+          {% endif %}
+        </button>
       </form>
     </div>
 </div>

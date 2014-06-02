@@ -143,7 +143,7 @@ class Root(BaseController):
     @cherrypy.expose
     def edit(self, news_id, comment_id):
       comment = Comment.get(comment_id)
-      return self.render("reply", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1)
+      return self.render("edit", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1, is_edit=True)
 
     @cherrypy.expose
     def user(self, username, email=None, password=None, description=None):
