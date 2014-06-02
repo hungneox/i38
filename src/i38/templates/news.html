@@ -49,6 +49,9 @@
         <a class="reply" href="/comment/{{comment.news_id}}/{{comment.id}}">{{ _('link') }}</a> |
         <a class="reply" href="/reply/{{comment.news_id}}/{{comment.id}}">{{ _('reply') }}</a>
         3 points <a class="uparrow" href="#up">▲</a> <a class="downarrow" href="#down">▼</a></span>
+        {% if comment.user_id == user_id %}
+
+        {% endif %}
         <div class="user-comment">
           <div class="md">
             {{comment.text}}

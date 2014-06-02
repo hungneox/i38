@@ -42,11 +42,13 @@ class BaseController:
     def render(self, name, **data):
         template = env.get_template(name+".html")
         username = cherrypy.session.get(SESSION_USERNAME, None)
+        user_id = cherrypy.session.get(SESSION_USER_ID, None)
         data['is_user_logged_in'] = False
         data['language'] = language
         if username:
             data['is_user_logged_in'] = True
             data['username'] = username
+            data['user_id'] = user_id
 
         return template.render(data).encode('utf-8')
 
