@@ -23,7 +23,20 @@ Base = declarative_base()
 SESSION_USERNAME = '_session_username'
 SESSION_USER_ID  = '_session_user_id'
 
-class News(Base):
+class BaseMixin(object):
+    """
+    Provides utility class methods for models.
+    """
+    
+    @classmethod
+    def query(cls):
+        return cherrypy.request.db.query(cls)
+
+    @classmethod
+    def get(cls, id):
+        return cls.query().get(id)
+
+class News(Base, BaseMixin):
     __tablename__ = 'news'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
@@ -57,15 +70,14 @@ class News(Base):
         return self.site_url
 
     def tld(self):
-      return get_tld(self.site_url)
+        return get_tld(self.site_url)
 
     def time_ago(self):
-      result = Utility.time_ago(self.created_at)
-      return result
+        return Utility.time_ago(self.created_at)
 
     @staticmethod
     def score(ups, downs):
-      return ups - downs
+        return ups - downs
 
     @classmethod
     def _rank(cls, ups, downs, date):
@@ -84,22 +96,18 @@ class News(Base):
 
     @classmethod
     def list(cls, page_size, offset):
-        return cherrypy.request.db.query(cls).order_by(desc(cls.rank)).limit(page_size).offset(offset)
+        return cls.query().order_by(desc(cls.rank)).limit(page_size).offset(offset)
 
     @classmethod
     def lastest(cls, page_size, offset):
-       return cherrypy.request.db.query(cls).order_by(desc(cls.created_at)).limit(page_size).offset(offset)
-
-    @classmethod
-    def get(cls, id):
-        return cherrypy.request.db.query(cls).get(id)
+       return cls.query().order_by(desc(cls.created_at)).limit(page_size).offset(offset)
 
     @classmethod
     def count(cls):
       #http://stackoverflow.com/questions/14754994/why-is-sqlalchemy-count-much-slower-than-the-raw-query
       return  cherrypy.request.db.query(func.count(cls.id)).scalar()#optimize to count rows
 
-class User(Base):
+class User(Base, BaseMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     username = Column(String(255))
@@ -122,16 +130,12 @@ class User(Base):
 
     @classmethod
     def list(cls):
-        return cherrypy.request.db.query(cls).all()
-
-    @classmethod
-    def get(cls, id):
-        return cherrypy.request.db.query(cls).get(id)
+        return cls.query().all()
 
     @classmethod
     def check_credentials(cls, username, password):
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user = cherrypy.request.db.query(cls).filter_by(username=username).first()
+        user = cls.query().filter_by(username=username).first()
         if user is None:
             return "Username %s is not exist" % username
         if user.password != hashed_password:
@@ -139,10 +143,9 @@ class User(Base):
 
     @classmethod
     def find_by_username(cls, username):
-        user = cherrypy.request.db.query(cls).filter_by(username=username).first()
-        return user
+        return cls.query().filter_by(username=username).first()
 
-class Comment(Base):
+class Comment(Base, BaseMixin):
     __tablename__ = 'comments'
     id = Column(Integer, primary_key=True)
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=False)
@@ -165,7 +168,7 @@ class Comment(Base):
         self.news_id = news_id
         self.parent_id = parent_id
         if not self.parent_id:
-          self.path = str(news_id) + '/'
+            self.path = str(news_id) + '/'
         self.text = text
         self.created_at = datetime.now()
 
@@ -176,16 +179,8 @@ class Comment(Base):
         return self.text
 
     @classmethod
-    def get(cls, id):
-        return cherrypy.request.db.query(cls).get(id)
-
-    @classmethod
     def list(cls, news_id):
-        return cherrypy.request.db.query(cls).filter_by(news_id=news_id).order_by(desc(cls.sort), cls.path).all()
+        return cls.query().filter_by(news_id=news_id).order_by(desc(cls.sort), cls.path).all()
 
     def time_ago(self):
-      result = Utility.time_ago(self.created_at)
-      return result
-
-# class Comment(Base):
-#     __tablename__ = 'comments'
+        return Utility.time_ago(self.created_at)
