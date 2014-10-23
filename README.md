@@ -32,12 +32,6 @@ Installing distribute............done.
 $ . venv/bin/activate
 ```
 
-# Install Flask
-
-```
-$ sudo pip install Flask
-```
-
 # Start MySQL on OSX
 
 ```
