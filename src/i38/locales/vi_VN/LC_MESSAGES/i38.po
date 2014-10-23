@@ -24,6 +24,9 @@ msgstr "Tin nổi bật"
 msgid "Submit"
 msgstr "Gửi"
 
+msgid "Edit"
+msgstr "Sửa"
+
 msgid "Register"
 msgstr "Đăng ký"
 

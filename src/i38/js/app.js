@@ -3,16 +3,33 @@ function post_comment(e){
    var data = $('#formComment').serialize();
 
     $.ajax({
-          type: 'POST',
-          url: '/api/post_comment',
-          data: data,
-          dataType: 'json'
-      }).done(function(data, textStatus, jqXHR){
-         window.location.href = "/news/" + data.news_id + "?r=" +  Math.random() + "#" + data.news_id + "-" + data.comment_id;
-      }).fail(function(data, textStatus, jqXHR){
-          console.log(data.error);
-      });
+        type: 'POST',
+        url: '/api/post_comment',
+        data: data,
+        dataType: 'json'
+    }).done(function(data, textStatus, jqXHR){
+       window.location.href = "/news/" + data.news_id + "?r=" +  Math.random() + "#" + data.news_id + "-" + data.comment_id;
+    }).fail(function(data, textStatus, jqXHR){
+        console.log(data.error);
+    });
 }
+
+function edit_comment(e){
+   e.preventDefault();
+   var data = $('#formComment').serialize();
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/edit_comment',
+        data: data,
+        dataType: 'json'
+    }).done(function(data, textStatus, jqXHR){
+       window.location.href = "/news/" + data.news_id + "?r=" +  Math.random() + "#" + data.news_id + "-" + data.comment_id;
+    }).fail(function(data, textStatus, jqXHR){
+        console.log(data.error);
+    });
+}
+
 
 $(function() {
     $('#news_list article').each(function(i,news) {

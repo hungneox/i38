@@ -6,9 +6,18 @@
           <input type="hidden" name="parent_id" value="{{ parent_id }}">
           <div class="form-group">
           <label for="comment">{{ _('Commment') }}</label>
-          <textarea name="text" id="wmd-input" cols="30" rows="10" class="form-control wmd-input"></textarea>
+          <textarea name="text" id="wmd-input" cols="30" rows="10" class="form-control wmd-input">
+            {% if is_edit %}
+              {{ comment.text}}
+            {% endif %}
+          </textarea>
         </div>
-        <button type="button" id="post_comment" name="post_comment" class="btn btn-default">
+          {% if is_edit %}
+            {% set action = "edit_comment" %}
+          {% else %}
+             {% set action = "post_comment" %}
+          {% endif %}
+          <button type="button" id="{{ action }}" name="{{ action }}" class="btn btn-default">
           {% if is_edit %}
             {{ _('Edit') }}
           {% else %}

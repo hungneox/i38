@@ -83,6 +83,8 @@
         <script>
             $(document).ready(function() {
                 $("#post_comment").click(post_comment);
+                $("#edit_comment").click(edit_comment);
+
                 var converter = Markdown.getSanitizingConverter();
 
                 converter.hooks.chain("preBlockGamut", function (text, rbg) {

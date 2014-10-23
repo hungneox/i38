@@ -143,7 +143,7 @@ class Root(BaseController):
     @cherrypy.expose
     def edit(self, news_id, comment_id):
       comment = Comment.get(comment_id)
-      return self.render("edit", comment=comment, news_id=news_id, parent_id=comment_id,comment_id=-1, is_edit=True)
+      return self.render("edit", comment=comment, news_id=news_id, parent_id=-1,comment_id=comment_id, is_edit=True)
 
     @cherrypy.expose
     def user(self, username, email=None, password=None, description=None):
@@ -187,7 +187,7 @@ class Api(object):
           cherrypy.request.db.add(comment)
           cherrypy.request.db.flush()
           cherrypy.request.db.refresh(comment)
-          print(comment)
+
           if comment.parent and comment.parent.path:
             path = comment.parent.path + '/' + str(comment.id)
           else:
@@ -206,6 +206,15 @@ class Api(object):
           return {"success": False,"news_id": news_id, "message": str(ex)}
 
         return {"success": True, "comment_id": str(comment.id), "news_id": news_id}
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def edit_comment(self, news_id, comment_id, parent_id, text):
+      try:
+        cherrypy.request.db.query(Comment).filter_by(id=comment_id).update({"text":text})
+      except Exception as ex:
+        return {"success": False,"news_id": news_id, "message": str(ex)}
+      return {"success": True, "comment_id": str(comment_id), "news_id": news_id}
 
     @cherrypy.expose
     @cherrypy.tools.json_out()
